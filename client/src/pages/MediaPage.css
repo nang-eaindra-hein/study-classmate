@@ -1,0 +1,124 @@
+.media-page {
+    
+    
+    min-height: 100vh;
+    padding: 2rem;
+    font-family: sans-serif;
+    color: #fff;
+}
+
+.media-home img {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    width: 50px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.media-title {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.new-post-box {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+.new-post-box textarea {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 8px;
+    border: none;
+    resize: none;
+    height: 80px;
+    font-size: 1rem;
+}
+
+.new-post-box button {
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.post-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    padding: 1rem;
+    border-radius: 10px;
+    position: relative;
+}
+
+.post-username {
+    font-weight: bold;
+    color: #90ee90;
+}
+
+.post-content {
+    margin: 0.5rem 0;
+}
+
+.post-time {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+.save-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #2196f3;
+    color: white;
+    padding: 0.3rem 0.6rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.3rem;
+}
+
+.post-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #fff;
+}
+
+.sort-bar {
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.sort-bar button {
+    background-color: #444;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+.post-time {
+    font-size: 0.75rem;
+    color: #ccc;
+    margin-left: 2.5rem;
+    margin-top: -0.5rem;
+}

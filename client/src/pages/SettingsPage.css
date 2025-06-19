@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
+.settings-page {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 6rem;
+    font-family: 'Luckiest Guy', cursive;
+    color: #fff;
+    text-align: center;
+}
+
+.home-link {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}
+
+.home-link img {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.settings-page h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #4caf50;
+}
+
+.settings-content {
+    width: 90%;
+    max-width: 400px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 12px;
+    padding: 2rem;
+    backdrop-filter: blur(6px);
+    text-align: left;
+    font-family: sans-serif;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.setting-item:last-child {
+    margin-bottom: 0;
+}
+
+.setting-item label {
+    font-size: 1rem;
+    color: #fff;
+}
+
+.setting-item input[type="checkbox"],
+.setting-item select {
+    cursor: pointer;
+}
+
+.setting-item select {
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    border: none;
+}
+
+.settings-link {
+    color: #ffd54f;
+    text-decoration: none;
+}
+
+.settings-link:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.reset-btn {
+    display: block;
+    width: 100%;
+    margin-top: 1.5rem;
+    background: #f44336;
+    color: #fff;
+    font-size: 1rem;
+}
+
+/* when <body class="dark-mode">… */
+body.dark-mode .settings-page {
+    /* dim the background image a bit */
+    filter: brightness(0.6);
+}
+
+/* make text lighter if needed */
+body.dark-mode h1,
+body.dark-mode .setting-item label,
+body.dark-mode .settings-link,
+body.dark-mode .btn {
+    color: #eee;
+}
+
+/* optionally darken the settings panel too */
+body.dark-mode .settings-content {
+    background: rgba(20, 20, 20, 0.8);
+}

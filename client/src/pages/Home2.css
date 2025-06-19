@@ -1,0 +1,103 @@
+.home2-container {
+    height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    backdrop-filter: blur(8px);
+}
+
+/* Top-left logo */
+.home2-logo {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+}
+
+/* Top-right profile icon */
+.home2-profile {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+.home2-profile img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+/* Center button header */
+.home2-header {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 1.5rem;
+}
+
+.home2-btn {
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 1.2rem;
+    padding: 0.8rem 1.6rem;
+    background: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+    backdrop-filter: blur(6px);
+}
+
+.home2-btn:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.dropdown-glass {
+    position: absolute;
+    top: 90px;
+    /* below profile icon */
+    right: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 100;
+    animation: dropdownFade 0.3s ease;
+}
+
+/* Make dropdown buttons look exactly like .home2-btn */
+.dropdown-glass .btn {
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 1.1rem;
+    padding: 0.8rem 1.6rem;
+    background: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    transition: transform 0.2s;
+}
+
+.dropdown-glass .btn:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.5);
+}
+
+@keyframes dropdownFade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

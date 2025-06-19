@@ -1,0 +1,161 @@
+/* PlayPage.css */
+.common-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    font-family: sans-serif;
+    background-size: cover;
+    background-position: center;
+}
+
+.header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+}
+
+.home-link img {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.right-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.diamonds {
+    font-size: 1.2rem;
+}
+
+.play-area,
+.leaderboard {
+    flex: 1;
+    margin: 1rem 2rem;
+    padding: 1rem 2rem;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    overflow-y: auto;
+}
+
+.select-panel,
+.review-panel,
+.quiz-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.manual-row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.manual-row input,
+.quiz-panel input,
+.modal-content input {
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: none;
+}
+
+.flashcard-list {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.flashcard {
+    width: 120px;
+    height: 80px;
+    perspective: 1000px;
+}
+
+.flashcard .inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.3s;
+}
+
+.flashcard:hover .inner {
+    transform: rotateY(180deg);
+}
+
+.flashcard .front,
+.flashcard .back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.flashcard .back {
+    transform: rotateY(180deg);
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.review-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.quiz-buttons button {
+    margin: 0.25rem 0;
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 6px;
+    background: #4caf50;
+    color: #fff;
+    cursor: pointer;
+}
+
+.leaderboard select {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: none;
+}
+
+.leaderboard ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.leaderboard li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: #222;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+}

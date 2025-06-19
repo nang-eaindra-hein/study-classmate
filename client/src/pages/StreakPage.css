@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
+.streak-container {
+    height: 100vh;
+    width: 100%;
+    backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding-top: 6rem;
+    font-family: 'Luckiest Guy', cursive;
+    color: #fff;
+    text-align: center;
+}
+
+.streak-header {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    right: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.streak-home {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.streak-diamonds {
+    /* inline-centering done in JS */
+}
+
+.streak-help {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.streak-title {
+    font-size: 2rem;
+    margin-top: 2rem;
+}
+
+.streak-count {
+    font-size: 4rem;
+    margin: 0.5rem 0;
+}
+
+.streak-pet {
+    margin-bottom: 1rem;
+}
+
+.btn {
+    padding: 0.4rem 1rem;
+    margin: 0.25rem;
+    background: #4caf50;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.streak-popup-glass {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.6);
+    padding: 1.5rem;
+    border-radius: 12px;
+    color: #fff;
+    z-index: 1000;
+}
+
+.progress-section {
+    width: 80%;
+    margin: 0.5rem auto 1rem;
+}
+
+.streak-bar {
+    width: 100%;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.streak-fill {
+    height: 100%;
+    background: #ff77c7;
+    transition: width 0.3s;
+}
+
+.streak-progress-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 0.5rem;
+}
+
+.streak-box {
+    padding: 0.4rem 0.8rem;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid #fff;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.streak-box strong {
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.streak-skin-selector {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 12px;
+    margin-top: 1rem;
+}
+
+.skin-row {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 1rem 0;
+}
+
+.skin-option {
+    flex: 0 0 auto;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid #fff;
+    border-radius: 12px;
+    padding: 0.5rem;
+    text-align: center;
+    color: #fff;
+    transition: transform 0.2s;
+}
+
+.skin-option:hover {
+    transform: scale(1.05);
+}
+
+.skin-option.unlocked {
+    border-color: #00ff7f;
+    background: rgba(0, 255, 127, 0.15);
+}
+
+.skin-option.locked {
+    opacity: 0.4;
+}
+
+.skin-select {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+}

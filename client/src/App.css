@@ -1,0 +1,145 @@
+/* src/App.css */
+
+/* 1) Cartoon font everywhere */
+body,
+.hero,
+.hero *,
+.btn,
+h1,
+p,
+a,
+label {
+  font-family: 'Luckiest Guy', cursive;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 2) Full-screen hero container (background set inline in JS) */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* 3) Glass card wrapper */
+.glass-card {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 4rem 2rem;
+  width: 90%;
+  max-width: 800px;
+  /* max width you asked for */
+  margin: auto;
+  /* center horizontally */
+  color: #fff;
+  text-align: center;
+  position: relative;
+}
+
+/* 4) Logo box (200×200) */
+.logo-box {
+  width: 200px;
+  /* fixed 200px width */
+  height: 200px;
+  /* fixed 200px height */
+  object-fit: contain;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 5) Headings */
+.glass-card h1,
+.glass-card h2 {
+  color: #deb075;
+  /* caramel */
+  margin-bottom: 0.75rem;
+}
+
+/* 6) Quote text */
+.glass-card .quote {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+/* 7) Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1.2rem;
+  background: #ffcd94;
+  color: #333;
+  border: 2px solid #e0a96d;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out, background 0.2s ease;
+}
+
+.btn:hover {
+  background: #ffd9a6;
+  transform: scale(1.05);
+}
+
+.btn:active {
+  transform: translateY(4px) scale(0.98);
+  box-shadow: none;
+}
+
+/* 8) Form layout */
+.glass-card form {
+  text-align: left;
+}
+
+.glass-card label {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.glass-card input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 6px;
+}
+
+/* 9) Back-button in top-left */
+.back-btn {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 1.2rem;
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.back-btn:hover {
+  opacity: 1;
+}
+
+/* 10) Inline message boxes */
+.message {
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  color: #fff;
+}
+
+.message.error {
+  background: rgba(220, 20, 60, 0.8);
+}
+
+.message.success {
+  background: rgba(60, 179, 80, 0.8);
+}
+body>div[style*="position: fixed"] {
+  display: none !important;
+}

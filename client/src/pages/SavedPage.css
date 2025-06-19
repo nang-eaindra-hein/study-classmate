@@ -1,0 +1,104 @@
+.savepage-container {
+    min-height: 100vh;
+    padding: 2rem;
+    color: #fff;
+    font-family: sans-serif;
+    background-size: cover;
+    background-position: center;
+}
+
+.back-home {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: #4caf50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.back-home:hover {
+    text-decoration: underline;
+}
+
+h1 {
+    margin-bottom: 1rem;
+    padding: 1rem 40rem;
+    
+}
+
+.tab-bar {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.tab-btn {
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.tab-btn.active,
+.tab-btn:hover {
+    background: rgba(76, 175, 80, 0.8);
+}
+
+.status-text {
+    font-size: 1.1rem;
+    opacity: 0.8;
+    text-align: center;
+}
+
+.item-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.item {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.item-content {
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+
+.item-date {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.8rem;
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+.source-label {
+    font-size: 1.2rem;
+    margin: 1.5rem 0 0.5rem;
+    color: #4caf50;
+    text-shadow: 1px 1px 2px #000;
+}
+
+.unsave-btn {
+    margin-top: 0.5rem;
+    background-color: rgba(255, 80, 80, 0.7);
+    border: none;
+    color: white;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    cursor: pointer;
+    float: right;
+    font-size: 0.9rem;
+}
+
+.unsave-btn:hover {
+    background-color: rgba(255, 60, 60, 1);
+}

@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
+/* reuses .common-page for the full‐screen background */
+
+.common-page {
+    font-family: 'Luckiest Guy', cursive;
+    color: #fff;
+    text-align: center;
+}
+
+/* Title on the about page */
+.common-page h1 {
+    margin-top: 2rem;
+    font-size: 2.5rem;
+    color: #4caf50;
+}
+
+/* Container for your bio paragraphs */
+.about-content {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.5rem 2rem;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 12px;
+    line-height: 1.6;
+    font-family: sans-serif;
+    text-align: left;
+}
+
+/* Your name */
+.about-content h2 {
+    margin-top: 0;
+    font-size: 2rem;
+    color: #ffd54f;
+}
+
+/* Paragraphs */
+.about-content p {
+    margin: 0.75rem 0;
+    font-size: 1rem;
+}
+
+/* Emphasized labels (Education:, Inspiration:, etc.) */
+.about-content p strong {
+    color: #4caf50;
+}
