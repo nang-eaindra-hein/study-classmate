@@ -10,7 +10,7 @@ export default function LoginPage() {
   const handleLogin = async e => {
     e.preventDefault();
     try {
-      const res = await fetch('http://127.0.0.1:5001/login', {
+      const res = await fetch('https://study-classmate-server.onrender.com/login', {
         method:  'POST',
         headers:{ 'Content-Type':'application/json' },
         body:    JSON.stringify({ username, password }),

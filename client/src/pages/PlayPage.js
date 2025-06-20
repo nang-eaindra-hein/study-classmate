@@ -39,7 +39,7 @@ export default function PlayPage() {
 
   // 0) ON MOUNT: load diamonds & scores
   useEffect(() => {
-    fetch(`http://127.0.0.1:5001/game-state?username=${username}`)
+    fetch(`https://study-classmate-server.onrender.com/game-state?username=${username}`)
       .then(res => res.json())
       .then(({ diamonds, scores }) => {
         setDiamonds(diamonds);
@@ -54,7 +54,7 @@ export default function PlayPage() {
     try {
       const unique = new Set();
       while (unique.size < count) {
-        const res = await fetch('http://127.0.0.1:5001/generate-word', { method: 'POST' });
+        const res = await fetch('https://study-classmate-server.onrender.com/generate-word', { method: 'POST' });
         const { word } = await res.json();
         unique.add(word);
       }
@@ -62,7 +62,7 @@ export default function PlayPage() {
 
       const defs = await Promise.all(
         words.map(async (word) => {
-          const r = await fetch('http://127.0.0.1:5001/define-word', {
+          const r = await fetch('https://study-classmate-server.onrender.com/define-word', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ word }),
@@ -145,7 +145,7 @@ export default function PlayPage() {
     clearInterval(timerRef.current);
     const newD = diamonds - 10;
     setDiamonds(newD);
-    fetch('http://127.0.0.1:5001/update-diamonds', {
+    fetch('https://study-classmate-server.onrender.com/update-diamonds', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, diamonds: newD }),
@@ -166,7 +166,7 @@ export default function PlayPage() {
     if (!playerName.trim()) return;
     const correctCount = results.filter(r => r.correct).length;
 
-    fetch('http://127.0.0.1:5001/save-score', {
+    fetch('https://study-classmate-server.onrender.com/save-score', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, name: playerName, score: correctCount }),
@@ -181,11 +181,11 @@ export default function PlayPage() {
         const last = localStorage.getItem('lastQuizDate');
         if (last !== TODAY) {
           localStorage.setItem('lastQuizDate', TODAY);
-          fetch(`http://127.0.0.1:5001/get-streak?username=${username}`)
+          fetch(`https://study-classmate-server.onrender.com/get-streak?username=${username}`)
             .then(r => r.json())
             .then(({ streakDays }) => {
               const next = (streakDays || 0) + 1;
-              return fetch('http://127.0.0.1:5001/save-streak', {
+              return fetch('https://study-classmate-server.onrender.com/save-streak', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, streakDays: next }),

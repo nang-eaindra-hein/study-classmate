@@ -28,12 +28,12 @@ export default function AccountPage() {
 
   // Load diamonds and profile on mount
   useEffect(() => {
-    fetch(`http://127.0.0.1:5001/game-state?username=${username}`)
+    fetch(`https://study-classmate-server.onrender.com/game-state?username=${username}`)
       .then(res => res.json())
       .then(({ diamonds }) => setDiamonds(diamonds))
       .catch(console.error);
 
-    fetch(`http://127.0.0.1:5001/profile?username=${username}`)
+    fetch(`https://study-classmate-server.onrender.com/profile?username=${username}`)
       .then(res => res.json())
       .then(data => setProfile({
         username:  data.username || username,

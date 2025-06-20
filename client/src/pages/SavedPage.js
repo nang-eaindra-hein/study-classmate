@@ -33,7 +33,7 @@ export default function SavePage() {
     setLoading(true);
     setMessage('');
     setItems([]);
-    fetch(`http://127.0.0.1:5001/${endpoints[activeTab]}?username=${username}`)
+    fetch(`https://study-classmate-server.onrender.com/${endpoints[activeTab]}?username=${username}`)
 
       .then(res => {
         if (!res.ok) throw new Error(res.statusText);
@@ -61,7 +61,7 @@ export default function SavePage() {
     const id = deleteTarget;
     const endpoint = endpoints.Delete[activeTab];
     try {
-      const res = await fetch(`http://127.0.0.1:5001/${endpoint}/${id}`, {
+      const res = await fetch(`https://study-classmate-server.onrender.com/${endpoint}/${id}`, {
         method: 'DELETE'
       });
       if (!res.ok) throw new Error('Failed');

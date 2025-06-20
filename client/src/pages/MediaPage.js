@@ -27,7 +27,7 @@ function getTimeAgo(timestamp) {
   // ✅ Fetch posts
   const fetchPosts = async () => {
     try {
-      const res = await fetch('http://127.0.0.1:5001/media-posts');
+      const res = await fetch('https://study-classmate-server.onrender.com/media-posts');
       const data = await res.json();
       setPosts(data);
     } catch (err) {
@@ -48,7 +48,7 @@ function getTimeAgo(timestamp) {
       const result = {};
       for (const name of usernames) {
         try {
-          const res = await fetch(`http://127.0.0.1:5001/profile?username=${name}`);
+          const res = await fetch(`https://study-classmate-server.onrender.com/profile?username=${name}`);
           const data = await res.json();
           result[name] = data.avatarUrl;
         } catch {
@@ -68,7 +68,7 @@ function getTimeAgo(timestamp) {
     }
 
     try {
-      await fetch('http://127.0.0.1:5001/media-posts', {
+      await fetch('https://study-classmate-server.onrender.com/media-posts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, text })
@@ -85,7 +85,7 @@ function getTimeAgo(timestamp) {
 
   const handleSave = async (postId) => {
     try {
-      await fetch('http://127.0.0.1:5001/save-media', {
+      await fetch('https://study-classmate-server.onrender.com/save-media', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, postId })
@@ -100,7 +100,7 @@ function getTimeAgo(timestamp) {
 
   const handleDelete = async (postId) => {
     try {
-      await fetch(`http://127.0.0.1:5001/media-posts/${postId}`, {
+      await fetch(`https://study-classmate-server.onrender.com/media-posts/${postId}`, {
         method: 'DELETE'
       });
       fetchPosts();

@@ -71,7 +71,7 @@ export default function StudyPage() {
   const genNotes = async () => {
     setLoadingSum(true);
     try {
-      const res = await fetch('http://127.0.0.1:5001/generate-note', { method: 'POST' });
+      const res = await fetch('https://study-classmate-server.onrender.com/generate-note', { method: 'POST' });
       const { note } = await res.json();
       setRawNotes(note || '');
     } catch {
@@ -87,7 +87,7 @@ export default function StudyPage() {
     try {
       let data;
       if (rawNotes.trim()) {
-        data = await (await fetch('http://127.0.0.1:5001/summarize-text', {
+        data = await (await fetch('https://study-classmate-server.onrender.com/summarize-text', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ text: rawNotes })
@@ -95,7 +95,7 @@ export default function StudyPage() {
       } else {
         const form = new FormData();
         form.append('file', file);
-        data = await (await fetch('http://127.0.0.1:5001/summarize', {
+        data = await (await fetch('https://study-classmate-server.onrender.com/summarize', {
           method: 'POST',
           body: form
         })).json();
@@ -111,13 +111,13 @@ export default function StudyPage() {
 
   const saveSum = () => {
     if (!summary) return showPopup('❌ Nothing to save');
-    saveToServer('http://127.0.0.1:5001/save-summary', { username, content: summary });
+    saveToServer('https://study-classmate-server.onrender.com/save-summary', { username, content: summary });
   };
 
   const genExample = async () => {
     setLoadingPara(true);
     try {
-      const res = await fetch('http://127.0.0.1:5001/generate-note', { method: 'POST' });
+      const res = await fetch('https://study-classmate-server.onrender.com/generate-note', { method: 'POST' });
       const { note } = await res.json();
       setText(note || '');
     } catch {
@@ -131,7 +131,7 @@ export default function StudyPage() {
     if (!text.trim()) return showPopup('❌ Enter or generate text');
     setLoadingPara(true);
     try {
-      const res = await fetch('http://127.0.0.1:5001/paraphrase-text', {
+      const res = await fetch('https://study-classmate-server.onrender.com/paraphrase-text', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text, tone })
@@ -148,14 +148,14 @@ export default function StudyPage() {
 
   const savePara = () => {
     if (!paraphrase) return showPopup('❌ Nothing to save');
-    saveToServer('http://127.0.0.1:5001/save-paraphrase', { username, content: paraphrase, tone });
+    saveToServer('https://study-classmate-server.onrender.com/save-paraphrase', { username, content: paraphrase, tone });
   };
 
   const searchDefinition = async () => {
     if (!searchWord) return;
     setLoadingSearch(true);
     try {
-      const res = await fetch('http://127.0.0.1:5001/define-word', {
+      const res = await fetch('https://study-classmate-server.onrender.com/define-word', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ word: searchWord })
@@ -183,7 +183,7 @@ export default function StudyPage() {
 
     try {
       await saveToServer(
-        'http://127.0.0.1:5001/save-vocab',
+        'https://study-classmate-server.onrender.com/save-vocab',
         { username, word: searchWord, definition: vocabDef }
       );
       // saveToServer already calls showPopup('✅ ...') on success
@@ -195,7 +195,7 @@ export default function StudyPage() {
 
   const saveManualVocab = () => {
     if (!manualWord || !manualMeaning) return showPopup('❌ Fill both fields');
-    saveToServer('http://127.0.0.1:5001/save-vocab', {
+    saveToServer('https://study-classmate-server.onrender.com/save-vocab', {
       username, word: manualWord, definition: manualMeaning
     });
   };
@@ -204,7 +204,7 @@ export default function StudyPage() {
     if (!manualText.trim()) return showPopup('❌ Enter text');
     setLoadingExtractManual(true);
     try {
-      const res = await fetch('http://127.0.0.1:5001/extract-vocab', {
+      const res = await fetch('https://study-classmate-server.onrender.com/extract-vocab', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: manualText })
@@ -224,7 +224,7 @@ export default function StudyPage() {
   const generateAIPara = async () => {
     setLoadingGenAiPara(true);
     try {
-      const res = await fetch('http://127.0.0.1:5001/generate-note', { method: 'POST' });
+      const res = await fetch('https://study-classmate-server.onrender.com/generate-note', { method: 'POST' });
       const { note } = await res.json();
       setAiParagraph(note || '');
     } catch {
@@ -238,7 +238,7 @@ export default function StudyPage() {
     if (!aiParagraph.trim()) return showPopup('❌ No AI paragraph yet');
     setLoadingExtractAi(true);
     try {
-      const res = await fetch('http://127.0.0.1:5001/extract-vocab', {
+      const res = await fetch('https://study-classmate-server.onrender.com/extract-vocab', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: aiParagraph })
@@ -259,7 +259,7 @@ const saveExtractedManual = () => {
   if (extractedManual.length === 0 || extractedManual[0].startsWith('⚠️') || extractedManual[0].startsWith('❌')) {
     return showPopup('❌ Nothing to save');
   }
-  saveToServer('http://127.0.0.1:5001/save-vocab', {
+  saveToServer('https://study-classmate-server.onrender.com/save-vocab', {
     username,
     word: 'Manual Extract',
     definition: extractedManual.join(', ')
@@ -270,7 +270,7 @@ const saveExtractedAi = () => {
   if (extractedAi.length === 0 || extractedAi[0].startsWith('⚠️') || extractedAi[0].startsWith('❌')) {
     return showPopup('❌ Nothing to save');
   }
-  saveToServer('http://127.0.0.1:5001/save-vocab', {
+  saveToServer('https://study-classmate-server.onrender.com/save-vocab', {
     username,
     word: 'AI Extract',
     definition: extractedAi.join(', ')
@@ -326,7 +326,7 @@ const saveExtractedAi = () => {
               onClick={async () => {
                 setLoadingSearch(true);
                 try {
-                  const res = await fetch('http://127.0.0.1:5001/generate-word', {
+                  const res = await fetch('https://study-classmate-server.onrender.com/generate-word', {
                     method: 'POST'
                   });
                   const data = await res.json();
@@ -335,7 +335,7 @@ const saveExtractedAi = () => {
                     setGeneratedWord(data.word);
 
                     // Immediately call searchDefinition with new word
-                    const defRes = await fetch('http://127.0.0.1:5001/define-word', {
+                    const defRes = await fetch('https://study-classmate-server.onrender.com/define-word', {
                       method: 'POST',
                       headers: { 'Content-Type': 'application/json' },
                       body: JSON.stringify({ word: data.word })

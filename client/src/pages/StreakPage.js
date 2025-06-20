@@ -52,7 +52,7 @@ export default function StreakPage() {
   // — FETCH INITIAL DATA —
   useEffect(() => {
     // get streak + selected skin
-    fetch(`http://127.0.0.1:5001/get-streak?username=${username}`)
+    fetch(`https://study-classmate-server.onrender.com/get-streak?username=${username}`)
       .then(r => r.json())
       .then(({ streakDays, selectedSkinId }) => {
         setStreakDays(streakDays);
@@ -62,7 +62,7 @@ export default function StreakPage() {
       .catch(console.error);
 
     // get diamonds + purchased skins
-    fetch(`http://127.0.0.1:5001/game-state?username=${username}`)
+    fetch(`https://study-classmate-server.onrender.com/game-state?username=${username}`)
       .then(r => r.json())
       .then(({ diamonds, purchasedSkins }) => {
         setDiamonds(diamonds);
@@ -73,7 +73,7 @@ export default function StreakPage() {
 
   // — SAVE STREAK WHEN IT CHANGES —
   useEffect(() => {
-    fetch(`http://127.0.0.1:5001/save-streak?username=${username}`, {
+    fetch(`https://study-classmate-server.onrender.com/save-streak?username=${username}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ streakDays }),
@@ -86,7 +86,7 @@ export default function StreakPage() {
     const nd = diamonds - 40;
     setDiamonds(nd);
 
-    fetch('http://127.0.0.1:5001/update-diamonds', {
+    fetch('https://study-classmate-server.onrender.com/update-diamonds', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, diamonds: nd }),
@@ -103,14 +103,14 @@ export default function StreakPage() {
     setDiamonds(nd);
 
     // update diamonds first
-    fetch('http://127.0.0.1:5001/update-diamonds', {
+    fetch('https://study-classmate-server.onrender.com/update-diamonds', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, diamonds: nd }),
     }).catch(console.error);
 
     // then buy
-    fetch('http://127.0.0.1:5001/buy-skin', {
+    fetch('https://study-classmate-server.onrender.com/buy-skin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, skinId: skin.id }),
@@ -122,7 +122,7 @@ export default function StreakPage() {
         setPreviewSkinId(skin.id);
 
         // finally save equipped skin
-        return fetch('http://127.0.0.1:5001/save-skin', {
+        return fetch('https://study-classmate-server.onrender.com/save-skin', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, skinId: skin.id }),
@@ -281,7 +281,7 @@ export default function StreakPage() {
                     <button
                       className="btn"
                       onClick={() => {
-                        fetch('http://127.0.0.1:5001/save-skin', {
+                        fetch('https://study-classmate-server.onrender.com/save-skin', {
                           method: 'POST',
                           headers:{ 'Content-Type':'application/json' },
                           body: JSON.stringify({ username, skinId: skin.id }),
@@ -328,7 +328,7 @@ export default function StreakPage() {
                     <button
                       className="btn"
                       onClick={() => {
-                        fetch('http://127.0.0.1:5001/save-skin', {
+                        fetch('https://study-classmate-server.onrender.com/save-skin', {
                           method:'POST',
                           headers:{ 'Content-Type':'application/json' },
                           body: JSON.stringify({ username, skinId: skin.id }),
