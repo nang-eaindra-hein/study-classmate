@@ -1,0 +1,34 @@
+{
+  "short_name": "Classmate",
+  "name": "Study Classmate",
+  "icons": [
+    {
+      "src": "logo192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+  {
+    "src": "screenshot1.png",
+    "sizes": "800x600",
+    "type": "image/png",
+    "form_factor": "wide"
+  },
+  {
+    "src": "screenshot2.png",
+    "sizes": "400x800",
+    "type": "image/png",
+    "form_factor": "narrow"
+  }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff"
+}
