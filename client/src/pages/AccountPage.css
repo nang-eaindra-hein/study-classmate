@@ -171,3 +171,76 @@ h1 {
 .modal-content.message-*/ button {
     margin-top: 1rem;
 }
+/* ─── Responsive Fixes for AccountPage ───────────────────────────── */
+
+@media (max-width: 768px) {
+    .account-page {
+        padding-top: 3rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .account-content {
+        width: 95%;
+        padding: 1rem;
+    }
+
+    .avatar-img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .avatar-preview {
+        width: 80px;
+        height: 80px;
+    }
+
+    .field {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .field label {
+        margin-bottom: 0.3rem;
+        text-align: left;
+    }
+
+    .field span,
+    .field .btn {
+        margin-left: 0;
+        margin-top: 0.3rem;
+    }
+
+    .modal-content {
+        width: 90%;
+        max-width: none;
+        padding: 1rem;
+    }
+
+    .modal-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .modal-buttons button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    .avatar-img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .avatar-preview {
+        width: 60px;
+        height: 60px;
+    }
+}

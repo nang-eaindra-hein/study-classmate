@@ -185,3 +185,92 @@
     opacity: 0.5;
     cursor: not-allowed;
 }
+/* ─── Responsive Fixes for PurchasePage ───────────────────────── */
+
+@media (max-width: 768px) {
+    .header-bar {
+        flex-direction: column;
+        align-items: center;
+        padding: 0.5rem;
+        height: auto;
+    }
+
+    .home-link {
+        position: static;
+        margin-bottom: 0.5rem;
+    }
+
+    .header-center h1 {
+        font-size: 1.8rem;
+    }
+
+    .header-diamonds {
+        font-size: 1.3rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        margin: 2rem 0 1rem;
+    }
+
+    .store-grid,
+    .chest-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 1rem;
+        width: 95%;
+    }
+
+    .package-pic,
+    .chest-pic {
+        width: 60px;
+        height: 60px;
+    }
+
+    .label-under {
+        font-size: 0.95rem;
+    }
+
+    .buy-btn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .modal-content {
+        padding: 1rem;
+        width: 95%;
+        font-size: 0.95rem;
+    }
+
+    .modal-buttons .btn {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.6rem;
+    }
+
+    .payment-form input {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-center h1 {
+        font-size: 1.5rem;
+    }
+
+    .header-diamonds {
+        font-size: 1.1rem;
+    }
+
+    .label-under,
+    .chest-info,
+    .chest-price {
+        font-size: 0.85rem;
+    }
+
+    .buy-btn {
+        font-size: 0.85rem;
+    }
+
+    .modal-content {
+        font-size: 0.9rem;
+    }
+}

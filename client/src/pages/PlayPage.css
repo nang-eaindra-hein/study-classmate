@@ -159,3 +159,59 @@
     border-radius: 8px;
     text-align: center;
 }
+/* ✅ Responsive layout for smaller screens */
+@media (max-width: 768px) {
+    .header-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .right-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .play-area,
+    .leaderboard {
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    .manual-row {
+        flex-direction: column;
+    }
+
+    .flashcard-list {
+        justify-content: center;
+    }
+
+    .flashcard {
+        width: 100px;
+        height: 70px;
+    }
+
+    .quiz-buttons button {
+        width: 100%;
+    }
+
+    .modal-content {
+        width: 90%;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .flashcard {
+        width: 90px;
+        height: 60px;
+    }
+
+    .modal-content {
+        font-size: 0.9rem;
+    }
+
+    .diamonds {
+        font-size: 1rem;
+    }
+}

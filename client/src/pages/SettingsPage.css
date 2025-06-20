@@ -111,3 +111,60 @@ body.dark-mode .btn {
 body.dark-mode .settings-content {
     background: rgba(20, 20, 20, 0.8);
 }
+/* ─── Responsive Fixes for SettingsPage ───────────────────────────── */
+
+@media (max-width: 768px) {
+    .settings-page {
+        padding: 4rem 1rem 2rem;
+    }
+
+    .settings-page h1 {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .settings-content {
+        padding: 1.5rem;
+        font-size: 0.95rem;
+    }
+
+    .setting-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .setting-item label {
+        font-size: 1rem;
+    }
+
+    .setting-item select {
+        width: 100%;
+    }
+
+    .reset-btn {
+        font-size: 0.95rem;
+        padding: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .settings-page h1 {
+        font-size: 1.6rem;
+    }
+
+    .settings-content {
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 0.8rem;
+    }
+
+    .reset-btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+}

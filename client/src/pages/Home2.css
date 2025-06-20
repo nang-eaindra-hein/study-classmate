@@ -36,11 +36,16 @@
     position: absolute;
     top: 8%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     display: flex;
-    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0 1rem;
+    max-width: 90%;
 }
 
+/* Glass buttons */
 .home2-btn {
     font-family: 'Luckiest Guy', cursive;
     font-size: 1.2rem;
@@ -52,6 +57,7 @@
     cursor: pointer;
     transition: 0.2s;
     backdrop-filter: blur(6px);
+    white-space: nowrap;
 }
 
 .home2-btn:hover {
@@ -59,10 +65,10 @@
     background: rgba(255, 255, 255, 0.5);
 }
 
+/* Dropdown under profile icon */
 .dropdown-glass {
     position: absolute;
     top: 90px;
-    /* below profile icon */
     right: 16px;
     display: flex;
     flex-direction: column;
@@ -71,7 +77,7 @@
     animation: dropdownFade 0.3s ease;
 }
 
-/* Make dropdown buttons look exactly like .home2-btn */
+/* Same style for dropdown buttons */
 .dropdown-glass .btn {
     font-family: 'Luckiest Guy', cursive;
     font-size: 1.1rem;
@@ -90,6 +96,7 @@
     background: rgba(255, 255, 255, 0.5);
 }
 
+/* Fade animation for dropdown */
 @keyframes dropdownFade {
     from {
         opacity: 0;
@@ -99,5 +106,21 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* ✅ Mobile responsive layout */
+@media (max-width: 600px) {
+    .home2-header {
+        flex-direction: column;
+        top: 12%;
+        gap: 0.7rem;
+    }
+
+    .home2-btn {
+        font-size: 1rem;
+        padding: 0.6rem 1.2rem;
+        width: 100%;
+        max-width: 300px;
     }
 }

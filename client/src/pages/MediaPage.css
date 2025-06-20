@@ -122,3 +122,86 @@
     margin-left: 2.5rem;
     margin-top: -0.5rem;
 }
+/* ─── Responsive Fixes for MediaPage ───────────────────────────── */
+
+@media (max-width: 768px) {
+    .media-page {
+        padding: 1rem;
+    }
+
+    .media-title {
+        font-size: 1.8rem;
+    }
+
+    .new-post-box textarea {
+        height: 70px;
+        font-size: 0.95rem;
+    }
+
+    .new-post-box button {
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    .post-list {
+        gap: 0.8rem;
+    }
+
+    .post-card {
+        padding: 0.8rem;
+    }
+
+    .post-avatar {
+        width: 28px;
+        height: 28px;
+    }
+
+    .post-username {
+        font-size: 0.95rem;
+    }
+
+    .post-content {
+        font-size: 0.9rem;
+    }
+
+    .save-btn {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.85rem;
+        top: 0.8rem;
+        right: 0.8rem;
+    }
+
+    .sort-bar button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .post-time {
+        font-size: 0.7rem;
+        margin-left: 1.5rem;
+        margin-top: -0.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .media-title {
+        font-size: 1.5rem;
+    }
+
+    .post-avatar {
+        width: 24px;
+        height: 24px;
+    }
+
+    .post-username {
+        font-size: 0.9rem;
+    }
+
+    .post-content {
+        font-size: 0.85rem;
+    }
+
+    .save-btn {
+        font-size: 0.8rem;
+    }
+}

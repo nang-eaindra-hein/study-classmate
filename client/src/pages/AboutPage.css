@@ -44,3 +44,36 @@
 .about-content p strong {
     color: #4caf50;
 }
+@media (max-width: 768px) {
+    .common-page h1 {
+        font-size: 2rem;
+        margin-top: 1.5rem;
+    }
+
+    .about-content {
+        max-width: 90%;
+        padding: 1rem 1.2rem;
+    }
+
+    .about-content h2 {
+        font-size: 1.6rem;
+    }
+
+    .about-content p {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .common-page h1 {
+        font-size: 1.6rem;
+    }
+
+    .about-content h2 {
+        font-size: 1.3rem;
+    }
+
+    .about-content p {
+        font-size: 0.9rem;
+    }
+}

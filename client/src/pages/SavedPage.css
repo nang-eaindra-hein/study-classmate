@@ -102,3 +102,76 @@ h1 {
 .unsave-btn:hover {
     background-color: rgba(255, 60, 60, 1);
 }
+/* ─── Responsive Fixes for SavePage ───────────────────────────── */
+
+@media (max-width: 768px) {
+    .savepage-container {
+        padding: 1rem;
+    }
+
+    h1 {
+        padding: 0.5rem;
+        font-size: 1.8rem;
+        text-align: center;
+    }
+
+    .tab-bar {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .tab-btn {
+        font-size: 0.95rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .item {
+        padding: 0.8rem;
+        font-size: 0.95rem;
+    }
+
+    .item-date {
+        font-size: 0.75rem;
+        right: 0.5rem;
+    }
+
+    .unsave-btn {
+        float: none;
+        display: block;
+        width: 100%;
+        margin-top: 0.8rem;
+        font-size: 0.85rem;
+        padding: 0.5rem;
+        text-align: center;
+    }
+
+    .source-label {
+        font-size: 1rem;
+        margin-top: 1rem;
+        text-align: center;
+    }
+
+    .status-text {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .tab-btn {
+        font-size: 0.9rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .unsave-btn {
+        font-size: 0.8rem;
+    }
+
+    .source-label {
+        font-size: 0.9rem;
+    }
+}

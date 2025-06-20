@@ -208,3 +208,72 @@
 .close-btn:hover {
     color: #ff5c5c;
 }
+/* ─── Responsive Fixes for StudyPage ───────────────────────────── */
+
+@media (max-width: 768px) {
+    .study-page {
+        padding: 1rem;
+    }
+
+    .main-header {
+        font-size: 2rem;
+    }
+
+    .top-row,
+    .middle-row,
+    .extract-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .section {
+        width: 100%;
+        max-width: 100%;
+        max-height: none;
+    }
+
+    .generated-output {
+        max-height: 150px;
+        font-size: 0.95rem;
+    }
+
+    .modal-content {
+        max-width: 90%;
+        font-size: 1rem;
+        padding: 1rem;
+    }
+
+    .close-btn {
+        font-size: 1.1rem;
+    }
+
+    .action-buttons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-header {
+        font-size: 1.6rem;
+    }
+
+    .section h2 {
+        font-size: 1.3rem;
+    }
+
+    .section button {
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    .clear-input-btn {
+        margin-left: 0;
+        margin-top: 0.5rem;
+        width: 100%;
+    }
+
+    .extracted-list {
+        font-size: 0.95rem;
+    }
+}

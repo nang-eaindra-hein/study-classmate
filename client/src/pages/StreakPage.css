@@ -159,3 +159,69 @@
     margin: 0.5rem 0;
     font-size: 1rem;
 }
+/* ─── Responsive Fixes for StreakPage ───────────────────────────── */
+
+@media (max-width: 768px) {
+    .streak-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        top: 0.5rem;
+    }
+
+    .streak-title {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .streak-count {
+        font-size: 3rem;
+    }
+
+    .progress-section {
+        width: 95%;
+    }
+
+    .streak-box {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .streak-pet {
+        max-width: 90%;
+    }
+
+    .streak-popup-glass {
+        width: 90%;
+        padding: 1rem;
+    }
+
+    .skin-option {
+        width: 120px;
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .streak-title {
+        font-size: 1.2rem;
+    }
+
+    .streak-count {
+        font-size: 2.2rem;
+    }
+
+    .skin-option {
+        width: 100px;
+        font-size: 0.85rem;
+    }
+
+    .streak-box strong {
+        font-size: 0.95rem;
+    }
+}
