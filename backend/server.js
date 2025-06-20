@@ -217,6 +217,17 @@ app.post('/update-bio', async (req, res) => {
   if (!u) return res.status(404).json({ error: 'User not found' });
   res.json({ bio: u.bio });
 });
+app.post('/change-password', async (req, res) => {
+  const { username, oldPassword, newPassword } = req.body;
+  const user = await User.findOne({ username });
+  if (!user) return res.status(404).json({ error: 'User not found' });
+  if (!(await bcrypt.compare(oldPassword, user.password))) {
+    return res.status(401).json({ error: 'Current password is incorrect' });
+  }
+  user.password = await bcrypt.hash(newPassword, 10);
+  await user.save();
+  res.json({ message: 'Password changed' });
+});
 
 // ─── Wallet & Game State ───────────────────────────────────────
 app.get('/game-state', async (req, res) => {
@@ -268,17 +279,6 @@ app.post('/save-skin', async (req, res) => {
   res.json({ selectedSkinId: u.selectedSkinId });
 });
 
-app.post('/change-password', async (req, res) => {
-  const { username, oldPassword, newPassword } = req.body;
-  const user = await User.findOne({ username });
-  if (!user) return res.status(404).json({ error: 'User not found' });
-  if (!(await bcrypt.compare(oldPassword, user.password))) {
-    return res.status(401).json({ error: 'Current password is incorrect' });
-  }
-  user.password = await bcrypt.hash(newPassword, 10);
-  await user.save();
-  res.json({ message: 'Password changed' });
-});
 
 // ─── AI & Note Routes ──────────────────────────────────────────
 app.post('/generate-note', async (req, res) => {

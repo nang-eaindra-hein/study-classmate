@@ -51,11 +51,16 @@ code {
     position: absolute;
     top: 8%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     display: flex;
-    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0 1rem;
+    max-width: 90%;
 }
 
+/* Glass buttons */
 .home2-btn {
     font-family: 'Luckiest Guy', cursive;
     font-size: 1.2rem;
@@ -68,6 +73,7 @@ code {
     transition: 0.2s;
     -webkit-backdrop-filter: blur(6px);
             backdrop-filter: blur(6px);
+    white-space: nowrap;
 }
 
 .home2-btn:hover {
@@ -75,10 +81,10 @@ code {
     background: rgba(255, 255, 255, 0.5);
 }
 
+/* Dropdown under profile icon */
 .dropdown-glass {
     position: absolute;
     top: 90px;
-    /* below profile icon */
     right: 16px;
     display: flex;
     flex-direction: column;
@@ -87,7 +93,7 @@ code {
     animation: dropdownFade 0.3s ease;
 }
 
-/* Make dropdown buttons look exactly like .home2-btn */
+/* Same style for dropdown buttons */
 .dropdown-glass .btn {
     font-family: 'Luckiest Guy', cursive;
     font-size: 1.1rem;
@@ -107,6 +113,7 @@ code {
     background: rgba(255, 255, 255, 0.5);
 }
 
+/* Fade animation for dropdown */
 @keyframes dropdownFade {
     from {
         opacity: 0;
@@ -116,6 +123,22 @@ code {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* ✅ Mobile responsive layout */
+@media (max-width: 600px) {
+    .home2-header {
+        flex-direction: column;
+        top: 12%;
+        gap: 0.7rem;
+    }
+
+    .home2-btn {
+        font-size: 1rem;
+        padding: 0.6rem 1.2rem;
+        width: 100%;
+        max-width: 300px;
     }
 }
 /* src/App.css */
@@ -426,6 +449,72 @@ body>div[style*="position: fixed"] {
     margin: 0.5rem 0;
     font-size: 1rem;
 }
+/* ─── Responsive Fixes for StreakPage ───────────────────────────── */
+
+@media (max-width: 768px) {
+    .streak-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        top: 0.5rem;
+    }
+
+    .streak-title {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .streak-count {
+        font-size: 3rem;
+    }
+
+    .progress-section {
+        width: 95%;
+    }
+
+    .streak-box {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .streak-pet {
+        max-width: 90%;
+    }
+
+    .streak-popup-glass {
+        width: 90%;
+        padding: 1rem;
+    }
+
+    .skin-option {
+        width: 120px;
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .streak-title {
+        font-size: 1.2rem;
+    }
+
+    .streak-count {
+        font-size: 2.2rem;
+    }
+
+    .skin-option {
+        width: 100px;
+        font-size: 0.85rem;
+    }
+
+    .streak-box strong {
+        font-size: 0.95rem;
+    }
+}
 .media-page {
     
     
@@ -550,6 +639,89 @@ body>div[style*="position: fixed"] {
     color: #ccc;
     margin-left: 2.5rem;
     margin-top: -0.5rem;
+}
+/* ─── Responsive Fixes for MediaPage ───────────────────────────── */
+
+@media (max-width: 768px) {
+    .media-page {
+        padding: 1rem;
+    }
+
+    .media-title {
+        font-size: 1.8rem;
+    }
+
+    .new-post-box textarea {
+        height: 70px;
+        font-size: 0.95rem;
+    }
+
+    .new-post-box button {
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    .post-list {
+        gap: 0.8rem;
+    }
+
+    .post-card {
+        padding: 0.8rem;
+    }
+
+    .post-avatar {
+        width: 28px;
+        height: 28px;
+    }
+
+    .post-username {
+        font-size: 0.95rem;
+    }
+
+    .post-content {
+        font-size: 0.9rem;
+    }
+
+    .save-btn {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.85rem;
+        top: 0.8rem;
+        right: 0.8rem;
+    }
+
+    .sort-bar button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .post-time {
+        font-size: 0.7rem;
+        margin-left: 1.5rem;
+        margin-top: -0.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .media-title {
+        font-size: 1.5rem;
+    }
+
+    .post-avatar {
+        width: 24px;
+        height: 24px;
+    }
+
+    .post-username {
+        font-size: 0.9rem;
+    }
+
+    .post-content {
+        font-size: 0.85rem;
+    }
+
+    .save-btn {
+        font-size: 0.8rem;
+    }
 }
 /* PlayPage.css */
 .common-page {
@@ -713,6 +885,62 @@ body>div[style*="position: fixed"] {
     padding: 2rem;
     border-radius: 8px;
     text-align: center;
+}
+/* ✅ Responsive layout for smaller screens */
+@media (max-width: 768px) {
+    .header-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .right-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .play-area,
+    .leaderboard {
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    .manual-row {
+        flex-direction: column;
+    }
+
+    .flashcard-list {
+        justify-content: center;
+    }
+
+    .flashcard {
+        width: 100px;
+        height: 70px;
+    }
+
+    .quiz-buttons button {
+        width: 100%;
+    }
+
+    .modal-content {
+        width: 90%;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .flashcard {
+        width: 90px;
+        height: 60px;
+    }
+
+    .modal-content {
+        font-size: 0.9rem;
+    }
+
+    .diamonds {
+        font-size: 1rem;
+    }
 }
 .study-page {
     min-height: 100vh;
@@ -926,8 +1154,91 @@ body>div[style*="position: fixed"] {
 .close-btn:hover {
     color: #ff5c5c;
 }
+/* ─── Responsive Fixes for StudyPage ───────────────────────────── */
+
+@media (max-width: 768px) {
+    .study-page {
+        padding: 1rem;
+    }
+
+    .main-header {
+        font-size: 2rem;
+    }
+
+    .top-row,
+    .middle-row,
+    .extract-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .section {
+        width: 100%;
+        max-width: 100%;
+        max-height: none;
+    }
+
+    .generated-output {
+        max-height: 150px;
+        font-size: 0.95rem;
+    }
+
+    .modal-content {
+        max-width: 90%;
+        font-size: 1rem;
+        padding: 1rem;
+    }
+
+    .close-btn {
+        font-size: 1.1rem;
+    }
+
+    .action-buttons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-header {
+        font-size: 1.6rem;
+    }
+
+    .section h2 {
+        font-size: 1.3rem;
+    }
+
+    .section button {
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    .clear-input-btn {
+        margin-left: 0;
+        margin-top: 0.5rem;
+        width: 100%;
+    }
+
+    .extracted-list {
+        font-size: 0.95rem;
+    }
+}
+/* -----------------------------------------------------------------------------
+   Force panels & buttons above any phantom overlays
+----------------------------------------------------------------------------- */
+.account-content,
+.account-content *,
+.btn {
+    position: relative;
+    z-index: 1;
+    pointer-events: auto !important;
+    cursor: pointer;
+}
 
 
+/* -----------------------------------------------------------------------------
+   Base layout
+----------------------------------------------------------------------------- */
 .account-page {
     position: relative;
     min-height: 100vh;
@@ -952,7 +1263,6 @@ body>div[style*="position: fixed"] {
     width: 48px;
     height: 48px;
     border-radius: 8px;
-    cursor: pointer;
 }
 
 .account-diamonds {
@@ -1029,10 +1339,13 @@ h1 {
     background: #4caf50;
     border: none;
     border-radius: 6px;
-    cursor: pointer;
     color: #fff;
 }
 
+
+/* -----------------------------------------------------------------------------
+   Modal styles
+----------------------------------------------------------------------------- */
 .modal {
     position: fixed;
     top: 0;
@@ -1079,11 +1392,18 @@ h1 {
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 6px;
-    cursor: pointer;
     background: #4caf50;
     color: #fff;
 }
 
+/* Explicit fix for the broken selector you had */
+.modal-content.message-info button,
+.modal-content.message-success button,
+.modal-content.message-error button {
+    margin-top: 1rem;
+}
+
+/* Text colors by type */
 .modal-content.message-info p {
     color: #fff;
 }
@@ -1092,14 +1412,82 @@ h1 {
     color: #4caf50;
 }
 
-/* green */
 .modal-content.message-error p {
     color: #f44336;
 }
 
-/* red */
-.modal-content.message-*/ button {
-    margin-top: 1rem;
+
+/* -----------------------------------------------------------------------------
+   Responsive adjustments
+----------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .account-page {
+        padding-top: 3rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .account-content {
+        width: 95%;
+        padding: 1rem;
+    }
+
+    .avatar-img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .avatar-preview {
+        width: 80px;
+        height: 80px;
+    }
+
+    .field {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .field label {
+        margin-bottom: 0.3rem;
+    }
+
+    .field span,
+    .field .btn {
+        margin-left: 0;
+        margin-top: 0.3rem;
+    }
+
+    .modal-content {
+        max-width: none;
+        padding: 1rem;
+    }
+
+    .modal-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .modal-buttons button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    .avatar-img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .avatar-preview {
+        width: 60px;
+        height: 60px;
+    }
 }
 .savepage-container {
     min-height: 100vh;
@@ -1206,7 +1594,79 @@ h1 {
 .unsave-btn:hover {
     background-color: rgba(255, 60, 60, 1);
 }
+/* ─── Responsive Fixes for SavePage ───────────────────────────── */
 
+@media (max-width: 768px) {
+    .savepage-container {
+        padding: 1rem;
+    }
+
+    h1 {
+        padding: 0.5rem;
+        font-size: 1.8rem;
+        text-align: center;
+    }
+
+    .tab-bar {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .tab-btn {
+        font-size: 0.95rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .item {
+        padding: 0.8rem;
+        font-size: 0.95rem;
+    }
+
+    .item-date {
+        font-size: 0.75rem;
+        right: 0.5rem;
+    }
+
+    .unsave-btn {
+        float: none;
+        display: block;
+        width: 100%;
+        margin-top: 0.8rem;
+        font-size: 0.85rem;
+        padding: 0.5rem;
+        text-align: center;
+    }
+
+    .source-label {
+        font-size: 1rem;
+        margin-top: 1rem;
+        text-align: center;
+    }
+
+    .status-text {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .tab-btn {
+        font-size: 0.9rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .unsave-btn {
+        font-size: 0.8rem;
+    }
+
+    .source-label {
+        font-size: 0.9rem;
+    }
+}
 
 .common-page {
     font-family: 'Luckiest Guy', cursive;
@@ -1396,6 +1856,95 @@ h1 {
     opacity: 0.5;
     cursor: not-allowed;
 }
+/* ─── Responsive Fixes for PurchasePage ───────────────────────── */
+
+@media (max-width: 768px) {
+    .header-bar {
+        flex-direction: column;
+        align-items: center;
+        padding: 0.5rem;
+        height: auto;
+    }
+
+    .home-link {
+        position: static;
+        margin-bottom: 0.5rem;
+    }
+
+    .header-center h1 {
+        font-size: 1.8rem;
+    }
+
+    .header-diamonds {
+        font-size: 1.3rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        margin: 2rem 0 1rem;
+    }
+
+    .store-grid,
+    .chest-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 1rem;
+        width: 95%;
+    }
+
+    .package-pic,
+    .chest-pic {
+        width: 60px;
+        height: 60px;
+    }
+
+    .label-under {
+        font-size: 0.95rem;
+    }
+
+    .buy-btn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .modal-content {
+        padding: 1rem;
+        width: 95%;
+        font-size: 0.95rem;
+    }
+
+    .modal-buttons .btn {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.6rem;
+    }
+
+    .payment-form input {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-center h1 {
+        font-size: 1.5rem;
+    }
+
+    .header-diamonds {
+        font-size: 1.1rem;
+    }
+
+    .label-under,
+    .chest-info,
+    .chest-price {
+        font-size: 0.85rem;
+    }
+
+    .buy-btn {
+        font-size: 0.85rem;
+    }
+
+    .modal-content {
+        font-size: 0.9rem;
+    }
+}
 
 .settings-page {
     position: relative;
@@ -1510,6 +2059,63 @@ body.dark-mode .btn {
 body.dark-mode .settings-content {
     background: rgba(20, 20, 20, 0.8);
 }
+/* ─── Responsive Fixes for SettingsPage ───────────────────────────── */
+
+@media (max-width: 768px) {
+    .settings-page {
+        padding: 4rem 1rem 2rem;
+    }
+
+    .settings-page h1 {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .settings-content {
+        padding: 1.5rem;
+        font-size: 0.95rem;
+    }
+
+    .setting-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .setting-item label {
+        font-size: 1rem;
+    }
+
+    .setting-item select {
+        width: 100%;
+    }
+
+    .reset-btn {
+        font-size: 0.95rem;
+        padding: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .settings-page h1 {
+        font-size: 1.6rem;
+    }
+
+    .settings-content {
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 0.8rem;
+    }
+
+    .reset-btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+}
 
 
 /* reuses .common-page for the full‐screen background */
@@ -1556,5 +2162,38 @@ body.dark-mode .settings-content {
 .about-content p strong {
     color: #4caf50;
 }
+@media (max-width: 768px) {
+    .common-page h1 {
+        font-size: 2rem;
+        margin-top: 1.5rem;
+    }
 
-/*# sourceMappingURL=main.1d3bb94d.css.map*/
+    .about-content {
+        max-width: 90%;
+        padding: 1rem 1.2rem;
+    }
+
+    .about-content h2 {
+        font-size: 1.6rem;
+    }
+
+    .about-content p {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .common-page h1 {
+        font-size: 1.6rem;
+    }
+
+    .about-content h2 {
+        font-size: 1.3rem;
+    }
+
+    .about-content p {
+        font-size: 0.9rem;
+    }
+}
+
+/*# sourceMappingURL=main.4d793c8b.css.map*/
