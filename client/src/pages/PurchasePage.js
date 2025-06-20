@@ -40,7 +40,7 @@ export default function PurchasePage() {
     const newCount = diamonds + buyModal.amount;
 
     // persist to backend
-    fetch('http://127.0.0.1:5001/update-diamonds', {
+    fetch('https:/study-classmate-server.onrender.com/update-diamonds', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ username, diamonds: newCount }),
@@ -65,7 +65,7 @@ export default function PurchasePage() {
     const newCount = diamonds + reward;
 
     // persist to backend
-    fetch('http://127.0.0.1:5001/update-diamonds', {
+    fetch('http/study-classmate-server.onrender.com/update-diamonds', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ username, diamonds: newCount }),

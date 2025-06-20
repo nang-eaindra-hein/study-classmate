@@ -58,7 +58,7 @@ export default function AccountPage() {
       const form = new FormData();
       form.append('username', username);
       form.append('avatar', avatarFile);
-      const res = await fetch('http://127.0.0.1:5001/upload-avatar', { method: 'POST', body: form });
+      const res = await fetch('http/study-classmate-server.onrender.com/upload-avatar', { method: 'POST', body: form });
       const { avatarUrl: newUrl } = await res.json();
       setProfile(p => ({ ...p, avatarUrl: newUrl }));
       setAvatarFile(null);
@@ -75,7 +75,7 @@ export default function AccountPage() {
     if (!newUsername.trim()) return;
     const nd = diamonds - 30;
     setDiamonds(nd);
-    fetch('http://127.0.0.1:5001/update-diamonds', {
+    fetch('http/study-classmate-server.onrender.com/update-diamonds', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, diamonds: nd })
     }).catch(console.error);
@@ -89,7 +89,7 @@ export default function AccountPage() {
   // Confirm password change
   const confirmPasswordChange = () => {
     if (!passwords.old || !passwords.new) return setMessageModal({ show: true, text: 'Fill both fields', type: 'error' });
-    fetch('http://127.0.0.1:5001/change-password', {
+    fetch('http/study-classmate-server.onrender.com/change-password', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, oldPassword: passwords.old, newPassword: passwords.new })
     })
@@ -105,7 +105,7 @@ export default function AccountPage() {
   // Confirm bio change
   const confirmBioChange = () => {
     setProfile(p => ({ ...p, bio: newBio }));
-    fetch('http://127.0.0.1:5001/update-bio', {
+    fetch('http/study-classmate-server.onrender.com/update-bio', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, bio: newBio })
     }).catch(console.error);
@@ -126,7 +126,7 @@ export default function AccountPage() {
         {/* Avatar Section */}
         <div className="avatar-section">
           <img
-            src={profile.avatarUrl ? `http://127.0.0.1:5001${profile.avatarUrl}` : `${process.env.PUBLIC_URL}/photos/default-avatar.png`}
+            src={profile.avatarUrl ? `http/study-classmate-server.onrender.com${profile.avatarUrl}` : `${process.env.PUBLIC_URL}/photos/default-avatar.png`}
             alt="Avatar"
             className="avatar-img"
           />
