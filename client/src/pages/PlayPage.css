@@ -1,146 +1,147 @@
-/* PlayPage.css */
+/* -----------------------------------------------------------------------------
+   PurchasePage.css
+   Updated to ensure buy buttons are clickable (z-index & pointer-events)
+----------------------------------------------------------------------------- */
 .common-page {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    color: #fff;
-    font-family: sans-serif;
-    background-size: cover;
-    background-position: center;
+    font-family: 'Luckiest Guy', cursive;
+    position: relative;
+}
+
+/* make header fixed and center title + diamonds */
+.purchase-page {
+    padding-top: 5rem;
 }
 
 .header-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4rem;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 1rem 2rem;
+    padding: 0 1.5rem;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 100;
+}
+
+.home-link {
+    position: absolute;
+    left: 1rem;
+    z-index: 101;
 }
 
 .home-link img {
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
     cursor: pointer;
 }
 
-.right-bar {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+.header-center {
+    margin: 0 auto;
+    text-align: center;
+    z-index: 101;
 }
 
-.diamonds {
-    font-size: 1.2rem;
+.header-center h1 {
+    color: #fff;
+    font-size: 2.2rem;
+    margin: 0;
 }
 
-.play-area,
-.leaderboard {
-    flex: 1;
-    margin: 1rem 2rem;
-    padding: 1rem 2rem;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    overflow-y: auto;
+.header-diamonds {
+    color: #fff;
+    font-size: 1.6rem;
+    margin-top: 0.2rem;
 }
 
-.select-panel,
-.review-panel,
-.quiz-panel {
+/* section titles under header */
+.section-title {
+    color: #fff;
+    text-align: center;
+    margin: 2.5rem 0 1rem;
+    font-size: 1.8rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* STORE GRID—only labels under */
+.store-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1.5rem;
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.package {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-}
-
-.manual-row {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.manual-row input,
-.quiz-panel input,
-.modal-content input {
-    padding: 0.5rem;
-    border-radius: 6px;
-    border: none;
-}
-
-.flashcard-list {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.flashcard {
-    width: 120px;
-    height: 80px;
-    perspective: 1000px;
-}
-
-.flashcard .inner {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.3s;
-}
-
-.flashcard:hover .inner {
-    transform: rotateY(180deg);
-}
-
-.flashcard .front,
-.flashcard .back {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    backface-visibility: hidden;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.6);
 }
 
-.flashcard .back {
-    transform: rotateY(180deg);
-    background: rgba(0, 0, 0, 0.8);
+.package-pic {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
 }
 
-.review-buttons {
-    display: flex;
-    gap: 1rem;
+.label-under {
+    margin-top: 0.5rem;
+    color: #fff;
+    font-weight: bold;
 }
 
-.quiz-buttons button {
-    margin: 0.25rem 0;
-    padding: 0.6rem 1rem;
-    border: none;
-    border-radius: 6px;
+.buy-btn {
+    margin-top: 0.5rem;
+    padding: 0.4rem 0.8rem;
     background: #4caf50;
     color: #fff;
-    cursor: pointer;
-}
-
-.leaderboard select {
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    border-radius: 6px;
     border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
 }
 
-.leaderboard ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    max-height: 300px;
-    overflow-y: auto;
+/* CHEST GRID */
+.chest-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1.5rem;
+    width: 90%;
+    max-width: 800px;
+    margin: 1rem auto 3rem;
+    position: relative;
+    z-index: 1;
 }
 
-.leaderboard li {
-    padding: 0.5rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+.chest-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+.chest-pic {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+}
+
+.chest-info,
+.chest-price {
+    color: #fff;
+    margin-top: 0.4rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* Modal overlay and content */
 .modal {
     position: fixed;
     top: 0;
@@ -151,67 +152,148 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 200;
 }
 
 .modal-content {
     background: #222;
-    padding: 2rem;
-    border-radius: 8px;
+    padding: 1.5rem;
+    border-radius: 6px;
     text-align: center;
+    color: #fff;
+    width: 90%;
+    max-width: 320px;
 }
-/* ✅ Responsive layout for smaller screens */
+
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.payment-form input {
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: none;
+    font-size: 1rem;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+.modal-buttons .btn {
+    padding: 0.4rem 0.8rem;
+    background: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    z-index: 201;
+    pointer-events: auto;
+}
+
+.modal-buttons .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Emergency fallback: ensure all buttons are clickable */
+button {
+    position: relative !important;
+    z-index: 9999 !important;
+    pointer-events: auto !important;
+}
+
+/* ─── Responsive Fixes for PurchasePage ───────────────────────── */
 @media (max-width: 768px) {
     .header-bar {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        padding: 0.5rem;
+        height: auto;
+    }
+
+    .home-link {
+        position: static;
+        margin-bottom: 0.5rem;
+    }
+
+    .header-center h1 {
+        font-size: 1.8rem;
+    }
+
+    .header-diamonds {
+        font-size: 1.3rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        margin: 2rem 0 1rem;
+    }
+
+    .store-grid,
+    .chest-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
         gap: 1rem;
+        width: 95%;
     }
 
-    .right-bar {
-        flex-direction: column;
-        align-items: flex-start;
+    .package-pic,
+    .chest-pic {
+        width: 60px;
+        height: 60px;
     }
 
-    .play-area,
-    .leaderboard {
-        margin: 1rem;
-        padding: 1rem;
+    .label-under {
+        font-size: 0.95rem;
     }
 
-    .manual-row {
-        flex-direction: column;
-    }
-
-    .flashcard-list {
-        justify-content: center;
-    }
-
-    .flashcard {
-        width: 100px;
-        height: 70px;
-    }
-
-    .quiz-buttons button {
-        width: 100%;
+    .buy-btn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.9rem;
     }
 
     .modal-content {
-        width: 90%;
         padding: 1rem;
+        width: 95%;
+        font-size: 0.95rem;
+    }
+
+    .modal-buttons .btn {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.6rem;
+    }
+
+    .payment-form input {
+        font-size: 0.95rem;
     }
 }
 
 @media (max-width: 480px) {
-    .flashcard {
-        width: 90px;
-        height: 60px;
+    .header-center h1 {
+        font-size: 1.5rem;
+    }
+
+    .header-diamonds {
+        font-size: 1.1rem;
+    }
+
+    .label-under,
+    .chest-info,
+    .chest-price {
+        font-size: 0.85rem;
+    }
+
+    .buy-btn {
+        font-size: 0.85rem;
     }
 
     .modal-content {
         font-size: 0.9rem;
-    }
-
-    .diamonds {
-        font-size: 1rem;
     }
 }

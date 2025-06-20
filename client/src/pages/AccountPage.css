@@ -1,15 +1,16 @@
 /* -----------------------------------------------------------------------------
    Force panels & buttons above any phantom overlays
 ----------------------------------------------------------------------------- */
+.account-page,
 .account-content,
 .account-content *,
-.btn {
+.btn,
+.account-diamonds {
     position: relative;
-    z-index: 1;
+    z-index: 10;
     pointer-events: auto !important;
     cursor: pointer;
 }
-
 
 /* ----------------------------------------------------------------------
    Base layout
@@ -45,6 +46,7 @@
     top: 1rem;
     right: 1rem;
     font-size: 1.5rem;
+    color: #fff;
 }
 
 h1 {
@@ -115,7 +117,6 @@ h1 {
     border-radius: 6px;
     color: #fff;
 }
-
 
 /* -----------------------------------------------------------------------------
    Modal styles
@@ -189,7 +190,6 @@ h1 {
 .modal-content.message-error p {
     color: #f44336;
 }
-
 
 /* -----------------------------------------------------------------------------
    Responsive adjustments
