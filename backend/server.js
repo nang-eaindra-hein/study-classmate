@@ -17,20 +17,29 @@ const MONGODB_URI = process.env.MONGODB_URI;
 // ─── Middleware ─────────────────────────────────────────────────
 app.use(express.json());
 
-const allowedOrigins = ['https://study-classmate-app.vercel.app', 'http://localhost:3000'];
+// List your real frontend origin(s) here:
+const allowedOrigins = [
+  'https://study-classmate-app.vercel.app',
+  'http://localhost:3000'
+];
 
+// Enable CORS for all routes and all methods
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
+  origin: function(origin, callback) {
+    // allow requests with no origin (e.g. mobile apps, curl)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
     }
+    callback(new Error(`CORS policy: origin ${origin} not allowed`));
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true,
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization'],
 }));
 
+// Explicitly handle preflight OPTIONS for all routes
+app.options('*', cors());
 
 
 // ─── Connect to MongoDB ──────────────────────────────────────────
