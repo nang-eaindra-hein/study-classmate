@@ -46,7 +46,9 @@ function Home() {
         maxWidth: '600px',
         marginBottom: '1.5rem'
       }}>
-        “Study without desire spoils the memory, and it retains nothing that it takes in.”<br />
+        “Meet Study Classmate – your not-so-boring study buddy! 🎓✨ Whether you're cramming for a test, learning new words, or just showing off your streaks, this AI pal's got your back. From flashcards to fun facts, notes to nerdy vibes, we turn stress into success – one click at a time! 💡📚⚡
+
+”<br />
       </p>
 
       <div style={{ display: 'flex', gap: '1rem' }}>
