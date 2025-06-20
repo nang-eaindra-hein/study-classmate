@@ -65,7 +65,7 @@ export default function PurchasePage() {
     const newCount = diamonds + reward;
 
     // persist to backend
-    fetch('http/study-classmate-server.onrender.com/update-diamonds', {
+    fetch('https://study-classmate-server.onrender.com/update-diamonds', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ username, diamonds: newCount }),

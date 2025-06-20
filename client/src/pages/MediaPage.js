@@ -161,7 +161,7 @@ function getTimeAgo(timestamp) {
                 <img
                   src={
                     avatars[p.username]
-                      ? `http://127.0.0.1:5001${avatars[p.username]}`
+                      ? `https://study-classmate-server.onrender.com${avatars[p.username]}`
                       : `${process.env.PUBLIC_URL}/photos/default-avatar.png`
                   }
                   alt="avatar"
