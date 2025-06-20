@@ -7,7 +7,7 @@
     align-items: center;
     position: relative;
     padding-top: 6rem;
-    font-family: 'Luckiest Guy', cursive;
+    font-family: "Luckiest Guy", cursive;
     color: #fff;
     text-align: center;
 }
@@ -29,7 +29,10 @@
 }
 
 .streak-diamonds {
-    /* inline-centering done in JS */
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    
 }
 
 .streak-help {
