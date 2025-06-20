@@ -1,4 +1,19 @@
+/* -----------------------------------------------------------------------------
+   Force panels & buttons above any phantom overlays
+----------------------------------------------------------------------------- */
+.account-content,
+.account-content *,
+.btn {
+    position: relative;
+    z-index: 1;
+    pointer-events: auto !important;
+    cursor: pointer;
+}
 
+
+/* -----------------------------------------------------------------------------
+   Base layout
+----------------------------------------------------------------------------- */
 .account-page {
     position: relative;
     min-height: 100vh;
@@ -23,7 +38,6 @@
     width: 48px;
     height: 48px;
     border-radius: 8px;
-    cursor: pointer;
 }
 
 .account-diamonds {
@@ -99,10 +113,13 @@ h1 {
     background: #4caf50;
     border: none;
     border-radius: 6px;
-    cursor: pointer;
     color: #fff;
 }
 
+
+/* -----------------------------------------------------------------------------
+   Modal styles
+----------------------------------------------------------------------------- */
 .modal {
     position: fixed;
     top: 0;
@@ -149,11 +166,18 @@ h1 {
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 6px;
-    cursor: pointer;
     background: #4caf50;
     color: #fff;
 }
 
+/* Explicit fix for the broken selector you had */
+.modal-content.message-info button,
+.modal-content.message-success button,
+.modal-content.message-error button {
+    margin-top: 1rem;
+}
+
+/* Text colors by type */
 .modal-content.message-info p {
     color: #fff;
 }
@@ -162,17 +186,14 @@ h1 {
     color: #4caf50;
 }
 
-/* green */
 .modal-content.message-error p {
     color: #f44336;
 }
 
-/* red */
-.modal-content.message-*/ button {
-    margin-top: 1rem;
-}
-/* ─── Responsive Fixes for AccountPage ───────────────────────────── */
 
+/* -----------------------------------------------------------------------------
+   Responsive adjustments
+----------------------------------------------------------------------------- */
 @media (max-width: 768px) {
     .account-page {
         padding-top: 3rem;
@@ -204,7 +225,6 @@ h1 {
 
     .field label {
         margin-bottom: 0.3rem;
-        text-align: left;
     }
 
     .field span,
@@ -214,7 +234,6 @@ h1 {
     }
 
     .modal-content {
-        width: 90%;
         max-width: none;
         padding: 1rem;
     }
