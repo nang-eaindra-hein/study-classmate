@@ -11,22 +11,33 @@ export default function LoginPage() {
     e.preventDefault();
     try {
       const res = await fetch('https://study-classmate-server.onrender.com/login', {
-        method:  'POST',
-        headers:{ 'Content-Type':'application/json' },
-        body:    JSON.stringify({ username, password }),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
       });
-      const data = await res.json();
+
+      let data;
+      try {
+        data = await res.json();
+      } catch (jsonErr) {
+        const raw = await res.text();
+        console.error('Invalid JSON:', raw);
+        setMessage('Server error (invalid response)');
+        return;
+      }
+
       if (!res.ok) {
         setMessage(data.message || 'Login failed');
         return;
       }
-      // store the current user
+
       localStorage.setItem('username', username);
       setMessage('Login successful ✅');
       setTimeout(() => navigate('/home2'), 1000);
+
     } catch (err) {
-      console.error(err);
-      setMessage('Login failed');
+      console.error('Network error:', err);
+      setMessage('Network error');
     }
   };
 
@@ -46,19 +57,9 @@ export default function LoginPage() {
         )}
         <form onSubmit={handleLogin}>
           <label>Username:</label>
-          <input
-            type="text"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            required
-          />
+          <input type="text" value={username} onChange={e => setUsername(e.target.value)} required />
           <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            required
-          />
+          <input type="password" value={password} onChange={e => setPassword(e.target.value)} required />
           <button type="submit" className="btn">Login</button>
         </form>
         <p style={{ marginTop: '1rem' }}>

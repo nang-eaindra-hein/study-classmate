@@ -11,22 +11,33 @@ export default function SignupPage() {
     e.preventDefault();
     try {
       const res = await fetch('https://study-classmate-server.onrender.com/signup', {
-        method:  'POST',
-        headers:{ 'Content-Type':'application/json' },
-        body:    JSON.stringify({ username, password }),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
       });
-      const data = await res.json();
-      if (!res.ok) {
-        setMessage({ type: 'error', text: data.message });
+
+      let data;
+      try {
+        data = await res.json();
+      } catch (jsonErr) {
+        const raw = await res.text();
+        console.error('Invalid JSON:', raw);
+        setMessage({ type: 'error', text: 'Server error (invalid response)' });
         return;
       }
-      // store user and go to home
+
+      if (!res.ok) {
+        setMessage({ type: 'error', text: data.message || 'Signup failed' });
+        return;
+      }
+
       localStorage.setItem('username', username);
-      setMessage({ type: 'success', text: data.message });
+      setMessage({ type: 'success', text: data.message || 'Signup successful' });
       setTimeout(() => navigate('/home2'), 1000);
+
     } catch (err) {
-      console.error(err);
-      setMessage({ type: 'error', text: 'Signup failed' });
+      console.error('Network error:', err);
+      setMessage({ type: 'error', text: 'Network error' });
     }
   };
 
@@ -39,26 +50,12 @@ export default function SignupPage() {
         <Link to="/" className="back-btn">← Back</Link>
         <img src={`${process.env.PUBLIC_URL}/photos/logo.png`} alt="Logo" className="logo-box" />
         <h2>Sign Up</h2>
-        {message && (
-          <div className={`message ${message.type}`}>
-            {message.text}
-          </div>
-        )}
+        {message && <div className={`message ${message.type}`}>{message.text}</div>}
         <form onSubmit={handleSignup}>
           <label>Username:</label>
-          <input
-            type="text"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            required
-          />
+          <input type="text" value={username} onChange={e => setUsername(e.target.value)} required />
           <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            required
-          />
+          <input type="password" value={password} onChange={e => setPassword(e.target.value)} required />
           <button className="btn" type="submit">Sign Up</button>
         </form>
         <p style={{ marginTop: 10 }}>
