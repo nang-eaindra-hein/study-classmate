@@ -37,11 +37,6 @@ app.use(cors({
   methods: ['GET','POST','PUT','DELETE','OPTIONS'],
   allowedHeaders: ['Content-Type','Authorization'],
 }));
-
-// Explicitly handle preflight OPTIONS for all routes
-app.options('*', cors());
-
-
 // ─── Connect to MongoDB ──────────────────────────────────────────
 mongoose.connect(MONGODB_URI, {
   dbName: 'ai_classmate',
