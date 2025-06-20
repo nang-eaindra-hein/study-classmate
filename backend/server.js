@@ -100,9 +100,11 @@ const Vocab = mongoose.model('Vocab', vocabSchema);
 // ─── OpenAI Client ───────────────────────────────────────────────
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
+
 // ─── File Upload Setup ──────────────────────────────────────────
 const avatarDest = path.join(__dirname, 'public/uploads');
-fs.mkdirSync(avatarDest, { recursive: true });
+fs.mkdirSync(avatarDest, { recursive: true });           // <-- fixed
+
 const avatarStorage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, avatarDest),
   filename:    (req, file, cb) => {
@@ -118,11 +120,11 @@ const docUpload = multer({ dest: docDest });
 
 app.use('/uploads', express.static(avatarDest));
 
-
+// ─── Media & SavedMedia Models ─────────────────────────────────
 const mediaSchema = new mongoose.Schema({
-  username: { type: String, required: true },
-  text:     { type: String, required: true },
-  createdAt:{ type: Date, default: Date.now }
+  username:  { type: String, required: true },
+  text:      { type: String, required: true },
+  createdAt: { type: Date, default: Date.now }
 });
 const Media = mongoose.model('Media', mediaSchema);
 
@@ -132,6 +134,7 @@ const savedMediaSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 const SavedMedia = mongoose.model('SavedMedia', savedMediaSchema);
+
 
 // ─── Auth Routes ────────────────────────────────────────────────
 // ── Signup Route ─────────────────────
