@@ -1,16 +1,14 @@
-/* src/pages/PlayPage.css */
-
 /* ── Base & Background ── */
 .common-page {
     position: relative;
     font-family: 'Luckiest Guy', cursive;
     color: #fff;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    display: flex;
-    flex-direction: column;
 }
 
 /* -----------------------------------------------------------------------------
@@ -45,7 +43,6 @@
     margin: 0;
     font-size: 1.6rem;
     color: #4caf50;
-    line-height: 3rem;
 }
 
 .home-link img {
@@ -60,9 +57,9 @@
     gap: 0.5rem;
 }
 
-/* override global width on header elements */
-.header-bar .right-bar button,
-.header-bar .diamonds {
+/* let header buttons & text size use their contents */
+.header-bar .diamonds,
+.header-bar button {
     width: auto !important;
     pointer-events: auto !important;
 }
@@ -81,7 +78,6 @@
     border-radius: 12px;
 }
 
-/* only make form controls inside panels full-width */
 .panel select,
 .panel input,
 .panel button {
@@ -105,11 +101,11 @@
 }
 
 .flashcard .inner {
-    position: relative;
     width: 180px;
     height: 120px;
-    transition: transform 0.6s;
+    position: relative;
     transform-style: preserve-3d;
+    transition: transform 0.6s;
 }
 
 .flashcard:hover .inner {
@@ -132,9 +128,6 @@
     background: rgba(76, 175, 80, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(8px);
-    color: #fff;
-    font-weight: bold;
-    text-align: center;
 }
 
 .flashcard .back {
@@ -176,9 +169,29 @@
     max-width: 90%;
 }
 
-.modal-content.warning {
-    background: #f8d7da;
-    color: #721c24;
+.modal-content.confirm {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #fff;
+}
+
+.modal-content.confirm .confirm-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.confirm-buttons button {
+    flex: 1;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.3);
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 /* -----------------------------------------------------------------------------

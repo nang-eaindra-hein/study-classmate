@@ -1,4 +1,3 @@
-// src/pages/PlayPage.js
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './PlayPage.css';
@@ -33,12 +32,12 @@ export default function PlayPage() {
   const [results, setResults] = useState([]);
 
   // MODALS
-  const [showNoDiamonds, setShowNoDiamonds] = useState(false);
+  const [showSkipConfirm, setShowSkipConfirm] = useState(false);
   const [showName, setShowName] = useState(false);
   const [playerName, setPlayerName] = useState('');
   const [sortBy, setSortBy] = useState('highest');
 
-  // LOAD GAME STATE
+  // Load initial game state
   useEffect(() => {
     fetch(`${API}/game-state?username=${username}`)
       .then(r => r.json())
@@ -49,7 +48,7 @@ export default function PlayPage() {
       .catch(console.error);
   }, [username]);
 
-  // TIMER
+  // Timer logic
   const startTimer = () => {
     clearInterval(timerRef.current);
     setTimer(15);
@@ -57,7 +56,7 @@ export default function PlayPage() {
       setTimer(t => {
         if (t <= 1) {
           clearInterval(timerRef.current);
-          handleAnswer('', true);
+          promptSkip(); // auto-skip when time’s up
           return 15;
         }
         return t - 1;
@@ -65,25 +64,16 @@ export default function PlayPage() {
     }, 1000);
   };
 
-  // HANDLE ANSWER OR SKIP
+  // Answer or skip
   const handleAnswer = async (submitted, isSkip = false) => {
     clearInterval(timerRef.current);
 
-    // skip checks
+    // check diamonds on skip
     if (isSkip && diamonds < 10) {
-      setShowNoDiamonds(true);
-      return;
+      return setShowSkipConfirm(true);
     }
 
-    // compute correctness
-    let correct = false;
-    if (!isSkip && submitted.trim()) {
-      correct =
-        submitted.trim().toLowerCase() ===
-        quizCards[currentIndex].word.toLowerCase();
-    }
-
-    // charge diamonds on skip
+    // deduct if skipping
     if (isSkip) {
       const newD = diamonds - 10;
       setDiamonds(newD);
@@ -94,21 +84,37 @@ export default function PlayPage() {
       }).catch(console.error);
     }
 
-    // record result
+    // check correct
+    let correct = false;
+    if (!isSkip && submitted.trim()) {
+      correct =
+        submitted.trim().toLowerCase() ===
+        quizCards[currentIndex].word.toLowerCase();
+    }
+
+    // record
     const updated = [...results, { ...quizCards[currentIndex], correct }];
     setResults(updated);
 
-    // next card or end
+    // next or end
     if (updated.length >= quizCards.length) {
       setShowName(true);
     } else {
-      setCurrentIndex(idx => idx + 1);
+      setCurrentIndex(i => i + 1);
       setGuess('');
       startTimer();
     }
   };
 
-  // GENERATE CARDS FROM AI
+  // Skip flow
+  const promptSkip = () => setShowSkipConfirm(true);
+
+  const confirmSkip = () => {
+    setShowSkipConfirm(false);
+    handleAnswer('', true);
+  };
+
+  // Generate via AI
   const handleGenerate = async () => {
     setLoadingGen(true);
     try {
@@ -119,7 +125,6 @@ export default function PlayPage() {
         setWords.add(word);
       }
       const words = Array.from(setWords);
-
       const defs = await Promise.all(
         words.map(async w => {
           const res = await fetch(`${API}/define-word`, {
@@ -133,7 +138,6 @@ export default function PlayPage() {
           return { word: w, definition: m ? m[1].trim() : head.trim() };
         })
       );
-
       setCards(defs);
       setMode('review');
     } catch (e) {
@@ -143,13 +147,13 @@ export default function PlayPage() {
     }
   };
 
-  // REVIEW MANUAL
+  // Manual review
   const handleReviewManual = () => {
     setCards(manualList.slice(0, count));
     setMode('review');
   };
 
-  // START QUIZ
+  // Start quiz
   const handleStartQuiz = () => {
     setQuizCards([...cards].sort(() => Math.random() - 0.5));
     setResults([]);
@@ -158,7 +162,7 @@ export default function PlayPage() {
     setMode('quiz');
   };
 
-  // SAVE SCORE
+  // Save score
   const saveScore = async () => {
     if (!playerName.trim()) return;
     const correctCount = results.filter(r => r.correct).length;
@@ -190,12 +194,11 @@ export default function PlayPage() {
     }
   };
 
-  // SORT LEADERBOARD
+  // Sort scores
   const sorted = [...scores].sort((a, b) => {
     if (sortBy === 'highest') return b.score - a.score;
     if (sortBy === 'lowest') return a.score - b.score;
-    if (sortBy === 'earliest')
-      return new Date(a.time) - new Date(b.time);
+    if (sortBy === 'earliest') return new Date(a.time) - new Date(b.time);
     return new Date(b.time) - new Date(a.time);
   });
 
@@ -220,9 +223,7 @@ export default function PlayPage() {
             <span className="diamonds">💎 {diamonds}</span>
             <button
               onClick={() =>
-                setActiveTab(prev =>
-                  prev === 'Play' ? 'Leaderboard' : 'Play'
-                )
+                setActiveTab(t => (t === 'Play' ? 'Leaderboard' : 'Play'))
               }
             >
               {activeTab === 'Play' ? 'Leaderboard' : 'Back'}
@@ -234,7 +235,113 @@ export default function PlayPage() {
       {/* PLAY AREA */}
       {activeTab === 'Play' && (
         <div className="play-area panel">
-          {/* ... your select / review / quiz panels unchanged ... */}
+          {mode === 'select' && (
+            <div className="select-panel">
+              <label>Number of Cards:</label>
+              <select
+                value={count}
+                onChange={e => {
+                  const n = +e.target.value;
+                  setCount(n);
+                  setManualList(
+                    Array.from({ length: n }, () => ({
+                      word: '',
+                      definition: '',
+                    }))
+                  );
+                }}
+              >
+                {[5, 10, 15].map(n => (
+                  <option key={n} value={n}>
+                    {n}
+                  </option>
+                ))}
+              </select>
+
+              <button onClick={handleGenerate} disabled={loadingGen}>
+                {loadingGen ? 'Generating…' : 'Generate From AI'}
+              </button>
+
+              <h3>Or Manual Insert:</h3>
+              {manualList.map((c, i) => (
+                <div
+                  key={i}
+                  style={{ display: 'flex', gap: '.5rem', margin: '.5rem 0' }}
+                >
+                  <input
+                    placeholder="Word"
+                    value={c.word}
+                    onChange={e => {
+                      const copy = [...manualList];
+                      copy[i].word = e.target.value;
+                      setManualList(copy);
+                    }}
+                  />
+                  <input
+                    placeholder="Meaning"
+                    value={c.definition}
+                    onChange={e => {
+                      const copy = [...manualList];
+                      copy[i].definition = e.target.value;
+                      setManualList(copy);
+                    }}
+                  />
+                </div>
+              ))}
+
+              <button
+                onClick={handleReviewManual}
+                disabled={
+                  !manualList
+                    .slice(0, count)
+                    .every(x => x.word && x.definition)
+                }
+              >
+                Review Manual Cards
+              </button>
+            </div>
+          )}
+
+          {mode === 'review' && (
+            <div className="review-panel">
+              <h2>Flashcards Preview</h2>
+              <div className="flashcard-list">
+                {cards.map((c, i) => (
+                  <div key={i} className="flashcard">
+                    <div className="inner">
+                      <div className="front">{c.word}</div>
+                      <div className="back">{c.definition}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="review-buttons">
+                <button onClick={() => setMode('select')}>Back</button>
+                <button onClick={handleStartQuiz}>Start Quiz</button>
+              </div>
+            </div>
+          )}
+
+          {mode === 'quiz' && (
+            <div className="quiz-panel">
+              <p>Time left: {timer}s</p>
+              <p>{quizCards[currentIndex]?.definition}</p>
+              <input
+                value={guess}
+                onChange={e => setGuess(e.target.value)}
+                placeholder="Your guess"
+              />
+              <div className="quiz-buttons">
+                <button onClick={() => handleAnswer(guess, false)}>
+                  Submit
+                </button>
+                <button onClick={promptSkip}>Skip</button>
+                <button onClick={() => window.location.reload()}>
+                  Restart
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
 
@@ -262,27 +369,22 @@ export default function PlayPage() {
         </div>
       )}
 
-      {/* SKIP WARNING */}
-      {showNoDiamonds && (
+      {/* SKIP CONFIRMATION */}
+      {showSkipConfirm && (
         <div className="modal">
-          <div className="modal-content warning">
-            <p>To skip a question, use 10 diamonds.</p>
-            <button
-              onClick={() => {
-                handleAnswer('', true);
-                setShowNoDiamonds(false);
-              }}
-            >
-              Use
-            </button>
-            <button onClick={() => setShowNoDiamonds(false)}>
-              Close
-            </button>
+          <div className="modal-content confirm">
+            <p>To skip, use 10 diamonds.</p>
+            <div className="confirm-buttons">
+              <button onClick={confirmSkip}>Use</button>
+              <button onClick={() => setShowSkipConfirm(false)}>
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       )}
 
-      {/* GAME OVER NAME PROMPT */}
+      {/* NAME / SAVE SCORE */}
       {showName && (
         <div className="modal">
           <div className="modal-content">
