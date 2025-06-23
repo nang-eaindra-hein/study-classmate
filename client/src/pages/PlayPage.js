@@ -230,11 +230,13 @@ export default function PlayPage() {
           <h1>Let’s Play</h1>
           <div className="right-bar">
             <span className="diamonds">💎 {diamonds}</span>
-            {activeTab === 'Play' ? (
-              <button onClick={() => setActiveTab('Leaderboard')}>Leaderboard</button>
-            ) : (
-              <button onClick={() => setActiveTab('Play')}>Back</button>
-            )}
+            <button
+              onClick={() =>
+                setActiveTab(prev => (prev === 'Play' ? 'Leaderboard' : 'Play'))
+              }
+            >
+              {activeTab === 'Play' ? 'Leaderboard' : 'Back'}
+            </button>
           </div>
         </div>
       </div>

@@ -96,13 +96,14 @@
 ----------------------------------------------------------------------------- */
 .panel {
     position: relative;
-    z-index: 1;
+    z-index: 5;
     max-width: 600px;
     margin: 4.5rem auto 2rem;
     padding: 1.5rem 2rem;
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(8px);
     border-radius: 12px;
+    pointer-events: auto;
 }
 
 /* make all form elements sit above the overlay */
@@ -119,7 +120,13 @@ input {
     width: 100%;
     box-sizing: border-box;
 }
-
+.select-panel button,
+.review-buttons button,
+.quiz-buttons button,
+.right-bar button {
+    z-index: 6 !important;
+    pointer-events: auto !important;
+}
 /* -----------------------------------------------------------------------------
    Flashcard Preview
 ----------------------------------------------------------------------------- */
