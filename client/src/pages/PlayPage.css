@@ -29,10 +29,12 @@
 /* -----------------------------------------------------------------------------
    Slim Header Bar
 ----------------------------------------------------------------------------- */
+
 .header-bar {
-    position: sticky;
+    position: fixed !important;
     top: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
     height: 3rem;
     padding: 0 1rem;
     display: flex;
@@ -40,7 +42,7 @@
     justify-content: center;
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(6px);
-    z-index: 10;
+    z-index: 1000 !important;
 }
 
 .header-bar .inner {
@@ -96,9 +98,9 @@
 ----------------------------------------------------------------------------- */
 .panel {
     position: relative;
-    z-index: 5;
+    z-index: 10;
     max-width: 600px;
-    margin: 4.5rem auto 2rem;
+    margin: 4rem auto 2rem;
     padding: 1.5rem 2rem;
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(8px);
@@ -124,19 +126,13 @@ input {
 .review-buttons button,
 .quiz-buttons button,
 .right-bar button {
-    z-index: 6 !important;
-    pointer-events: auto !important;
+    z-index: 11 ;
+    pointer-events: auto ;
 }
 /* -----------------------------------------------------------------------------
    Flashcard Preview
 ----------------------------------------------------------------------------- */
-.flashcard-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-}
-
+/* ── Glassy green auto-flip on hover ── */
 .flashcard {
     perspective: 1000px;
     cursor: pointer;
@@ -145,14 +141,24 @@ input {
 .flashcard .inner {
     position: relative;
     width: 180px;
+    /* match your size */
     height: 120px;
+    /* match your size */
     transition: transform 0.6s;
     transform-style: preserve-3d;
 }
 
+/* flip on hover */
+.flashcard:hover .inner {
+    transform: rotateY(180deg);
+}
+
+/* front & back styling */
 .flashcard .front,
 .flashcard .back {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
@@ -160,20 +166,20 @@ input {
     align-items: center;
     justify-content: center;
     padding: 0.5rem;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.9);
-    color: #000;
+    border-radius: 12px;
+    background: rgba(76, 175, 80, 0.2);
+    /* green tint */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    font-weight: bold;
     text-align: center;
 }
 
+/* flip the back face into place */
 .flashcard .back {
     transform: rotateY(180deg);
 }
-
-.flashcard.flipped .inner {
-    transform: rotateY(180deg);
-}
-
 /* -----------------------------------------------------------------------------
    Review & Quiz Buttons
 ----------------------------------------------------------------------------- */
