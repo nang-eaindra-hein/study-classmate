@@ -69,7 +69,7 @@ export default function PlayPage() {
           });
           const { content } = await r.json();
           const head = content.split(/Example sentence/i)[0];
-          const m = head.match(/Definition:\s*([^-\n]+)/i);
+          const m = head.match(/Definition:\s*([^ -\n]+)/i);
           const definition = m ? m[1].trim() : head.replace(/[-]/g, '').trim();
           return { word, definition };
         })
@@ -211,25 +211,28 @@ export default function PlayPage() {
     >
       {/* HEADER */}
       <div className="header-bar">
-        <div className="home-link" onClick={() => navigate('/home2')}>
-          <img
-            src={`${process.env.PUBLIC_URL}/photos/home.jpg`}
-            className="streak-home"
-            alt="Home"
-          />
-        </div>
-        <h1>Let’s Play</h1>
-        <div className="right-bar">
-          <span className="diamonds">💎 {diamonds}</span>
-          {activeTab === 'Play'
-            ? <button onClick={() => setActiveTab('Leaderboard')}>Leaderboard</button>
-            : <button onClick={() => setActiveTab('Play')}>Back</button>}
+        <div className="inner">
+          <div className="home-link" onClick={() => navigate('/home2')}>
+            <img
+              src={`${process.env.PUBLIC_URL}/photos/home.jpg`}  
+              alt="Home"
+            />
+          </div>
+          <h1>Let’s Play</h1>
+          <div className="right-bar">
+            <span className="diamonds">💎 {diamonds}</span>
+            {activeTab === 'Play'
+              ? <button onClick={() => setActiveTab('Leaderboard')}>
+                  Leaderboard
+                </button>
+              : <button onClick={() => setActiveTab('Play')}>Back</button>}
+          </div>
         </div>
       </div>
 
       {/* PLAY AREA */}
       {activeTab === 'Play' && (
-        <div className="play-area">
+        <div className="play-area panel">
           {/* SELECT MODE */}
           {mode === 'select' && (
             <div className="select-panel">
@@ -239,7 +242,7 @@ export default function PlayPage() {
                 onChange={e => {
                   const n = +e.target.value;
                   setCount(n);
-                  setManualList(Array.from({ length: n }, () => ({ word:'',definition:'' })));
+                  setManualList(Array.from({ length: n }, () => ({ word:'',definition:'' })));  
                 }}
               >
                 {[5,10,15].map(n => (
@@ -252,8 +255,9 @@ export default function PlayPage() {
 
               <h3>Or Manual Insert:</h3>
               {manualList.map((c,i) => (
-                <div key={i} className="manual-row">
+                <div key={i} className="manual-row" style={{ display:'flex', gap:'0.75rem' }}>
                   <input
+                    style={{ flex: 1 }}
                     placeholder="Word"
                     value={c.word}
                     onChange={e => {
@@ -263,6 +267,7 @@ export default function PlayPage() {
                     }}
                   />
                   <input
+                    style={{ flex: 1 }}
                     placeholder="Meaning"
                     value={c.definition}
                     onChange={e => {
@@ -367,7 +372,7 @@ export default function PlayPage() {
 
       {/* LEADERBOARD */}
       {activeTab === 'Leaderboard' && (
-        <div className="leaderboard">
+        <div className="leaderboard panel">
           <h2>Leaderboard</h2>
           <select value={sortBy} onChange={e=>setSortBy(e.target.value)}>
             <option value="highest">Highest Score</option>
