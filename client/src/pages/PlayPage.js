@@ -8,6 +8,7 @@ export default function PlayPage() {
   const navigate = useNavigate();
   const TODAY = new Date().toDateString();
   const username = localStorage.getItem('username');
+  const API = process.env.REACT_APP_API_URL;
 
   // GENERAL
   const [activeTab, setActiveTab] = useState('Play');
