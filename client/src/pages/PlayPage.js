@@ -1,8 +1,8 @@
+// client/src/pages/PlayPage.js
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './PlayPage.css';
 
-const API = 'https://study-classmate-server.onrender.com';
+const API = process.env.REACT_APP_API_URL || '';
 
 export default function PlayPage() {
   const navigate = useNavigate();
@@ -56,7 +56,7 @@ export default function PlayPage() {
       setTimer(t => {
         if (t <= 1) {
           clearInterval(timerRef.current);
-          promptSkip(); // auto-skip when time’s up
+          promptSkip();
           return 15;
         }
         return t - 1;
@@ -68,12 +68,9 @@ export default function PlayPage() {
   const handleAnswer = async (submitted, isSkip = false) => {
     clearInterval(timerRef.current);
 
-    // check diamonds on skip
     if (isSkip && diamonds < 10) {
       return setShowSkipConfirm(true);
     }
-
-    // deduct if skipping
     if (isSkip) {
       const newD = diamonds - 10;
       setDiamonds(newD);
@@ -84,7 +81,6 @@ export default function PlayPage() {
       }).catch(console.error);
     }
 
-    // check correct
     let correct = false;
     if (!isSkip && submitted.trim()) {
       correct =
@@ -92,11 +88,9 @@ export default function PlayPage() {
         quizCards[currentIndex].word.toLowerCase();
     }
 
-    // record
     const updated = [...results, { ...quizCards[currentIndex], correct }];
     setResults(updated);
 
-    // next or end
     if (updated.length >= quizCards.length) {
       setShowName(true);
     } else {
@@ -106,9 +100,8 @@ export default function PlayPage() {
     }
   };
 
-  // Skip flow
+  // Skip helpers
   const promptSkip = () => setShowSkipConfirm(true);
-
   const confirmSkip = () => {
     setShowSkipConfirm(false);
     handleAnswer('', true);
@@ -140,8 +133,8 @@ export default function PlayPage() {
       );
       setCards(defs);
       setMode('review');
-    } catch (e) {
-      console.error(e);
+    } catch {
+      console.error('AI generate failed');
     } finally {
       setLoadingGen(false);
     }
@@ -169,11 +162,7 @@ export default function PlayPage() {
     const res = await fetch(`${API}/save-score`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username,
-        name: playerName,
-        score: correctCount,
-      }),
+      body: JSON.stringify({ username, name: playerName, score: correctCount }),
     });
     const { scores: updated } = await res.json();
     setScores(updated);
@@ -183,7 +172,6 @@ export default function PlayPage() {
 
     if (localStorage.getItem('lastQuizDate') !== TODAY) {
       localStorage.setItem('lastQuizDate', TODAY);
-      // bump streak
       const r1 = await fetch(`${API}/get-streak?username=${username}`);
       const { streakDays } = await r1.json();
       await fetch(`${API}/save-streak`, {
@@ -202,72 +190,105 @@ export default function PlayPage() {
     return new Date(b.time) - new Date(a.time);
   });
 
+  // Inline styles for panels
+  const panelStyle = {
+    position: 'relative',
+    zIndex: 10,
+    margin: '4rem auto 2rem',
+    maxWidth: 600,
+    padding: '1.5rem 2rem',
+    background: 'rgba(0,0,0,0.5)',
+    borderRadius: 12,
+  };
+
+  const btnRow = { display: 'flex', gap: '.5rem', justifyContent: 'center', marginTop: 16 };
+
   return (
     <div
-      className="common-page"
       style={{
+        position: 'relative',
+        fontFamily: "'Luckiest Guy', cursive",
+        color: '#fff',
+        minHeight: '100vh',
         backgroundImage: `url(${process.env.PUBLIC_URL}/photos/pages3.jpg)`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
       {/* HEADER */}
-      <div className="header-bar">
-        <div className="inner">
-          <div className="home-link" onClick={() => navigate('/home2')}>
-            <img
-              src={`${process.env.PUBLIC_URL}/photos/home.jpg`}
-              alt="Home"
-            />
-          </div>
-          <h1>Let’s Play</h1>
-          <div className="right-bar">
-            <span className="diamonds">💎 {diamonds}</span>
-            <button
-              onClick={() =>
-                setActiveTab(t => (t === 'Play' ? 'Leaderboard' : 'Play'))
-              }
-            >
-              {activeTab === 'Play' ? 'Leaderboard' : 'Back'}
-            </button>
-          </div>
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '3rem',
+          padding: '0 1rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          background: 'rgba(0,0,0,0.6)',
+          zIndex: 999,
+        }}
+      >
+        <div onClick={() => navigate('/home2')} style={{ cursor: 'pointer' }}>
+          <img
+            src={`${process.env.PUBLIC_URL}/photos/home.jpg`}
+            alt="Home"
+            style={{ width: 32, height: 32 }}
+          />
+        </div>
+        <h1 style={{ margin: 0, fontSize: '1.6rem', color: '#4caf50' }}>Let’s Play</h1>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '.5rem' }}>
+          <span style={{ fontSize: '1rem' }}>💎 {diamonds}</span>
+          <button
+            style={{
+              padding: '.3rem .8rem',
+              border: 'none',
+              borderRadius: 6,
+              background: '#4caf50',
+              color: '#fff',
+              fontWeight: 'bold',
+              cursor: 'pointer',
+            }}
+            onClick={() =>
+              setActiveTab(t => (t === 'Play' ? 'Leaderboard' : 'Play'))
+            }
+          >
+            {activeTab === 'Play' ? 'Leaderboard' : 'Back'}
+          </button>
         </div>
       </div>
 
       {/* PLAY AREA */}
       {activeTab === 'Play' && (
-        <div className="play-area panel">
+        <div style={panelStyle}>
           {mode === 'select' && (
-            <div className="select-panel">
+            <>
               <label>Number of Cards:</label>
               <select
                 value={count}
                 onChange={e => {
                   const n = +e.target.value;
                   setCount(n);
-                  setManualList(
-                    Array.from({ length: n }, () => ({
-                      word: '',
-                      definition: '',
-                    }))
-                  );
+                  setManualList(Array.from({ length: n }, () => ({ word: '', definition: '' })));
                 }}
+                style={{ width: '100%', margin: '8px 0' }}
               >
                 {[5, 10, 15].map(n => (
-                  <option key={n} value={n}>
-                    {n}
-                  </option>
+                  <option key={n} value={n}>{n}</option>
                 ))}
               </select>
 
-              <button onClick={handleGenerate} disabled={loadingGen}>
+              <button onClick={handleGenerate} disabled={loadingGen} style={{ width: '100%', margin: '8px 0' }}>
                 {loadingGen ? 'Generating…' : 'Generate From AI'}
               </button>
 
               <h3>Or Manual Insert:</h3>
               {manualList.map((c, i) => (
-                <div
-                  key={i}
-                  style={{ display: 'flex', gap: '.5rem', margin: '.5rem 0' }}
-                >
+                <div key={i} style={{ display: 'flex', gap: 8, margin: '8px 0' }}>
                   <input
                     placeholder="Word"
                     value={c.word}
@@ -276,6 +297,7 @@ export default function PlayPage() {
                       copy[i].word = e.target.value;
                       setManualList(copy);
                     }}
+                    style={{ flex: 1 }}
                   />
                   <input
                     placeholder="Meaning"
@@ -285,84 +307,106 @@ export default function PlayPage() {
                       copy[i].definition = e.target.value;
                       setManualList(copy);
                     }}
+                    style={{ flex: 1 }}
                   />
                 </div>
               ))}
 
               <button
                 onClick={handleReviewManual}
-                disabled={
-                  !manualList
-                    .slice(0, count)
-                    .every(x => x.word && x.definition)
-                }
+                disabled={!manualList.slice(0, count).every(x => x.word && x.definition)}
+                style={{ width: '100%', marginTop: 8 }}
               >
                 Review Manual Cards
               </button>
-            </div>
+            </>
           )}
 
           {mode === 'review' && (
-            <div className="review-panel">
-              <h2>Flashcards Preview</h2>
-              <div className="flashcard-list">
+            <>
+              <h2 style={{ textAlign: 'center' }}>Flashcards Preview</h2>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, justifyContent:'center' }}>
                 {cards.map((c, i) => (
-                  <div key={i} className="flashcard">
-                    <div className="inner">
-                      <div className="front">{c.word}</div>
-                      <div className="back">{c.definition}</div>
+                  <div key={i} style={{ perspective: 1000 }}>
+                    <div
+                      style={{
+                        width: 180,
+                        height: 120,
+                        position: 'relative',
+                        transformStyle: 'preserve-3d',
+                        transition: 'transform 0.6s',
+                      }}
+                      onMouseEnter={e => e.currentTarget.style.transform = 'rotateY(180deg)'}
+                      onMouseLeave={e => e.currentTarget.style.transform = 'rotateY(0deg)'}
+                    >
+                      <div style={{
+                        position: 'absolute', top: 0, left: 0,
+                        width: '100%', height: '100%',
+                        backfaceVisibility: 'hidden',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        background: 'rgba(76,175,80,0.2)', borderRadius: 12,
+                      }}>
+                        {c.word}
+                      </div>
+                      <div style={{
+                        position: 'absolute', top: 0, left: 0,
+                        width: '100%', height: '100%',
+                        backfaceVisibility: 'hidden',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        background: 'rgba(76,175,80,0.2)', borderRadius: 12,
+                        transform: 'rotateY(180deg)',
+                      }}>
+                        {c.definition}
+                      </div>
                     </div>
                   </div>
                 ))}
               </div>
-              <div className="review-buttons">
+              <div style={btnRow}>
                 <button onClick={() => setMode('select')}>Back</button>
                 <button onClick={handleStartQuiz}>Start Quiz</button>
               </div>
-            </div>
+            </>
           )}
 
           {mode === 'quiz' && (
-            <div className="quiz-panel">
+            <>
               <p>Time left: {timer}s</p>
               <p>{quizCards[currentIndex]?.definition}</p>
               <input
                 value={guess}
-                onChange={e => setGuess(e.target.value)}
                 placeholder="Your guess"
+                onChange={e => setGuess(e.target.value)}
+                style={{ width: '100%', margin: '8px 0' }}
               />
-              <div className="quiz-buttons">
-                <button onClick={() => handleAnswer(guess, false)}>
-                  Submit
-                </button>
+              <div style={btnRow}>
+                <button onClick={() => handleAnswer(guess, false)}>Submit</button>
                 <button onClick={promptSkip}>Skip</button>
-                <button onClick={() => window.location.reload()}>
-                  Restart
-                </button>
+                <button onClick={() => window.location.reload()}>Restart</button>
               </div>
-            </div>
+            </>
           )}
         </div>
       )}
 
       {/* LEADERBOARD */}
       {activeTab === 'Leaderboard' && (
-        <div className="leaderboard panel">
-          <h2>Leaderboard</h2>
+        <div style={panelStyle}>
+          <h2 style={{ textAlign: 'center' }}>Leaderboard</h2>
           <select
             value={sortBy}
             onChange={e => setSortBy(e.target.value)}
+            style={{ width: '100%', margin: '8px 0' }}
           >
             <option value="highest">Highest</option>
             <option value="lowest">Lowest</option>
             <option value="earliest">Earliest</option>
             <option value="latest">Latest</option>
           </select>
-          <ul>
+          <ul style={{ listStyle: 'none', padding: 0 }}>
             {sorted.map((s, i) => (
-              <li key={i}>
-                {s.name} – {s.score} –{' '}
-                {new Date(s.time).toLocaleString()}
+              <li key={i} style={{ margin: '4px 0' }}>
+                {s.name} – {s.score} – {new Date(s.time).toLocaleString()}
               </li>
             ))}
           </ul>
@@ -371,31 +415,50 @@ export default function PlayPage() {
 
       {/* SKIP CONFIRMATION */}
       {showSkipConfirm && (
-        <div className="modal">
-          <div className="modal-content confirm">
+        <div style={{
+          position:'fixed', top:0,left:0,right:0,bottom:0,
+          background:'rgba(0,0,0,0.6)', display:'flex',
+          alignItems:'center', justifyContent:'center', zIndex:1000
+        }}>
+          <div style={{
+            background:'rgba(255,255,255,0.2)', backdropFilter:'blur(8px)',
+            border:'1px solid rgba(255,255,255,0.4)', color:'#fff',
+            padding:'1rem 2rem', borderRadius:8, textAlign:'center'
+          }}>
             <p>To skip, use 10 diamonds.</p>
-            <div className="confirm-buttons">
-              <button onClick={confirmSkip}>Use</button>
-              <button onClick={() => setShowSkipConfirm(false)}>
-                Cancel
-              </button>
+            <div style={{ display:'flex', gap:8, marginTop:16 }}>
+              <button onClick={confirmSkip} style={{flex:1}}>Use</button>
+              <button onClick={()=>setShowSkipConfirm(false)} style={{flex:1}}>Cancel</button>
             </div>
           </div>
         </div>
       )}
 
-      {/* NAME / SAVE SCORE */}
+      {/* GAME OVER NAME PROMPT */}
       {showName && (
-        <div className="modal">
-          <div className="modal-content">
+        <div style={{
+          position:'fixed', top:0,left:0,right:0,bottom:0,
+          background:'rgba(22, 21, 21, 0.6)', display:'flex',
+          alignItems:'center', justifyContent:'center', zIndex:1000
+        }}>
+          <div style={{
+            background:'rgba(22, 21, 21, 0.6)', padding:'1.5rem 2rem', borderRadius:8,
+            textAlign:'center', maxWidth:'90%'
+          }}>
             <h3>Game Over!</h3>
-            <p>Score: {results.filter(r => r.correct).length}</p>
+            <p>Score: {results.filter(r=>r.correct).length}</p>
             <input
               placeholder="Enter your name"
               value={playerName}
-              onChange={e => setPlayerName(e.target.value)}
+              onChange={e=>setPlayerName(e.target.value)}
+              style={{width:'100%',boxSizing:'border-box',margin:'1rem 0'}}
             />
-            <button onClick={saveScore}>Save</button>
+            <button onClick={saveScore} style={{
+              padding:'.5rem 1rem',border:'none',borderRadius:6,
+              background:'rgba(56, 118, 210, 0)',color:'#fff',fontWeight:'bold'
+            }}>
+              Save
+            </button>
           </div>
         </div>
       )}
