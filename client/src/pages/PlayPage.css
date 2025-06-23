@@ -1,299 +1,331 @@
 /* -----------------------------------------------------------------------------
-   PurchasePage.css
-   Updated to ensure buy buttons are clickable (z-index & pointer-events)
+   PlayPage.css
+   Improved layout: centered panels, translucent backdrops, larger inputs/buttons
 ----------------------------------------------------------------------------- */
 .common-page {
+    position: relative;
     font-family: 'Luckiest Guy', cursive;
-    position: relative;
-}
-
-/* make header fixed and center title + diamonds */
-.purchase-page {
-    padding-top: 5rem;
-}
-
-.header-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4rem;
+    color: #fff;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     display: flex;
-    align-items: center;
-    padding: 0 1.5rem;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 100;
+    flex-direction: column;
 }
 
-.home-link {
+/* dark overlay so text always pops */
+.common-page::before {
+    content: "";
     position: absolute;
-    left: 1rem;
-    z-index: 101;
-}
-
-.home-link img {
-    width: 48px;
-    height: 48px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.header-center {
-    margin: 0 auto;
-    text-align: center;
-    z-index: 101;
-}
-
-.header-center h1 {
-    color: #fff;
-    font-size: 2.2rem;
-    margin: 0;
-}
-
-.header-diamonds {
-    color: #fff;
-    font-size: 1.6rem;
-    margin-top: 0.2rem;
-}
-
-/* section titles under header */
-.section-title {
-    color: #fff;
-    text-align: center;
-    margin: 2.5rem 0 1rem;
-    font-size: 1.8rem;
-    position: relative;
-    z-index: 1;
-}
-
-/* STORE GRID—only labels under */
-.store-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 1.5rem;
-    width: 90%;
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-}
-
-.package {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.package-pic {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-}
-
-.label-under {
-    margin-top: 0.5rem;
-    color: #fff;
-    font-weight: bold;
-}
-
-.buy-btn {
-    margin-top: 0.5rem;
-    padding: 0.4rem 0.8rem;
-    background: #4caf50;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    position: relative;
-    z-index: 10;
-    pointer-events: auto;
-}
-
-/* CHEST GRID */
-.chest-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 1.5rem;
-    width: 90%;
-    max-width: 800px;
-    margin: 1rem auto 3rem;
-    position: relative;
-    z-index: 1;
-}
-
-.chest-option {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.chest-pic {
-    width: 70px;
-    height: 70px;
-    object-fit: contain;
-}
-
-.chest-info,
-.chest-price {
-    color: #fff;
-    margin-top: 0.4rem;
-    text-align: center;
-    font-size: 0.9rem;
-}
-
-/* Modal overlay and content */
-.modal {
-    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 0;
+}
+
+.header-bar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    z-index: 10;
+}
+
+.header-bar h1 {
+    flex: 1;
+    text-align: center;
+    font-size: 1.8rem;
+    margin: 0;
+    color: #4caf50;
+}
+
+.home-link img {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.right-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.right-bar .diamonds {
+    font-size: 1.2rem;
+}
+
+.right-bar button {
+    padding: 0.5rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    background: #4caf50;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.right-bar button:hover {
+    background: #43a047;
+}
+
+/* -----------------------------------------------------------------------------
+   Shared panel wrapper
+----------------------------------------------------------------------------- */
+.panel {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.5rem 2rem;
     background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+}
+
+/* -----------------------------------------------------------------------------
+   Selection Panel
+----------------------------------------------------------------------------- */
+.select-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.select-panel label {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.select-panel select,
+.manual-row input {
+    padding: 0.6rem;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.select-panel select:focus,
+.manual-row input:focus {
+    outline: 2px solid #4caf50;
+}
+
+.select-panel button {
+    align-self: flex-start;
+    padding: 0.7rem 1.4rem;
+    border: none;
+    border-radius: 6px;
+    background: #4caf50;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.select-panel button:hover {
+    background: #43a047;
+}
+
+.manual-row {
+    display: flex;
+    gap: 0.75rem;
+}
+
+/* -----------------------------------------------------------------------------
+   Review Panel
+----------------------------------------------------------------------------- */
+.review-panel h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #4caf50;
+}
+
+.flashcard-list {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.flashcard {
+    width: 140px;
+    height: 100px;
+    perspective: 1000px;
+}
+
+.flashcard .inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.3s;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.flashcard:hover .inner {
+    transform: rotateY(180deg);
+}
+
+.flashcard .front,
+.flashcard .back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 200;
-}
-
-.modal-content {
-    background: #222;
-    padding: 1.5rem;
-    border-radius: 6px;
+    font-size: 0.9rem;
     text-align: center;
+    padding: 0.5rem;
     color: #fff;
-    width: 90%;
-    max-width: 320px;
 }
 
-.payment-form {
+.flashcard .front {
+    background: rgba(76, 175, 80, 0.8);
+}
+
+.flashcard .back {
+    transform: rotateY(180deg);
+    background: rgba(33, 33, 33, 0.8);
+}
+
+.review-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.review-buttons button {
+    padding: 0.7rem 1.4rem;
+    border: none;
+    border-radius: 6px;
+    background: #4caf50;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.review-buttons button:hover {
+    background: #43a047;
+}
+
+/* -----------------------------------------------------------------------------
+   Quiz Panel
+----------------------------------------------------------------------------- */
+.quiz-panel {
+    text-align: center;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    margin: 1rem 0;
+    gap: 1rem;
 }
 
-.payment-form input {
-    padding: 0.5rem;
-    border-radius: 4px;
-    border: none;
+.quiz-panel p {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+}
+
+.quiz-panel input {
+    padding: 0.6rem;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
     font-size: 1rem;
+    width: 80%;
+    max-width: 300px;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 
-.modal-buttons {
+.quiz-buttons {
     display: flex;
-    gap: 0.75rem;
+    gap: 1rem;
     justify-content: center;
 }
 
-.modal-buttons .btn {
-    padding: 0.4rem 0.8rem;
+.quiz-buttons button {
+    padding: 0.7rem 1.4rem;
+    border: none;
+    border-radius: 6px;
     background: #4caf50;
     color: #fff;
-    border: none;
-    border-radius: 4px;
+    font-weight: bold;
     cursor: pointer;
-    position: relative;
-    z-index: 201;
-    pointer-events: auto;
+    transition: background 0.2s;
 }
 
-.modal-buttons .btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+.quiz-buttons button:hover {
+    background: #43a047;
 }
 
-/* Emergency fallback: ensure all buttons are clickable */
+/* -----------------------------------------------------------------------------
+   Leaderboard Panel
+----------------------------------------------------------------------------- */
+.leaderboard {
+    /* reuse .panel styles */
+}
+
+/* -----------------------------------------------------------------------------
+   Modal Styles
+----------------------------------------------------------------------------- */
+.modal-content {
+    max-width: 360px;
+}
+
+/* -----------------------------------------------------------------------------
+   Utility — ensure buttons always on top
+----------------------------------------------------------------------------- */
 button {
     position: relative !important;
-    z-index: 9999 !important;
-    pointer-events: auto !important;
+    z-index: 10 !important;
 }
 
-/* ─── Responsive Fixes for PurchasePage ───────────────────────── */
+/* -----------------------------------------------------------------------------
+   Responsive tweaks
+----------------------------------------------------------------------------- */
 @media (max-width: 768px) {
-    .header-bar {
-        flex-direction: column;
-        align-items: center;
-        padding: 0.5rem;
-        height: auto;
+    .panel {
+        margin: 1.5rem 1rem;
     }
 
-    .home-link {
-        position: static;
-        margin-bottom: 0.5rem;
-    }
-
-    .header-center h1 {
-        font-size: 1.8rem;
-    }
-
-    .header-diamonds {
-        font-size: 1.3rem;
-    }
-
-    .section-title {
-        font-size: 1.5rem;
-        margin: 2rem 0 1rem;
-    }
-
-    .store-grid,
-    .chest-grid {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-        gap: 1rem;
-        width: 95%;
-    }
-
-    .package-pic,
-    .chest-pic {
-        width: 60px;
-        height: 60px;
-    }
-
-    .label-under {
-        font-size: 0.95rem;
-    }
-
-    .buy-btn {
-        padding: 0.4rem 0.6rem;
-        font-size: 0.9rem;
-    }
-
-    .modal-content {
-        padding: 1rem;
-        width: 95%;
-        font-size: 0.95rem;
-    }
-
-    .modal-buttons .btn {
-        font-size: 0.9rem;
-        padding: 0.4rem 0.6rem;
-    }
-
-    .payment-form input {
-        font-size: 0.95rem;
+    .flashcard {
+        width: 120px;
+        height: 90px;
     }
 }
 
 @media (max-width: 480px) {
-    .header-center h1 {
-        font-size: 1.5rem;
+    .header-bar h1 {
+        font-size: 1.4rem;
     }
 
-    .header-diamonds {
-        font-size: 1.1rem;
+    .quiz-panel input {
+        width: 90%;
     }
 
-    .label-under,
-    .chest-info,
-    .chest-price {
-        font-size: 0.85rem;
-    }
-
-    .buy-btn {
-        font-size: 0.85rem;
-    }
-
-    .modal-content {
-        font-size: 0.9rem;
+    .flashcard {
+        width: 100px;
+        height: 80px;
     }
 }
