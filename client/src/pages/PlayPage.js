@@ -69,7 +69,8 @@ export default function PlayPage() {
           });
           const { content } = await r.json();
           const head = content.split(/Example sentence/i)[0];
-          const m = head.match(/Definition:\s*([^ -\n]+)/i);
+          // Corrected regex: escape hyphen to avoid invalid character range
+          const m = head.match(/Definition:\s*([^-\n]+)/i);
           const definition = m ? m[1].trim() : head.replace(/[-]/g, '').trim();
           return { word, definition };
         })
@@ -213,18 +214,13 @@ export default function PlayPage() {
       <div className="header-bar">
         <div className="inner">
           <div className="home-link" onClick={() => navigate('/home2')}>
-            <img
-              src={`${process.env.PUBLIC_URL}/photos/home.jpg`}  
-              alt="Home"
-            />
+            <img src={`${process.env.PUBLIC_URL}/photos/home.jpg`} alt="Home" />
           </div>
           <h1>Let’s Play</h1>
           <div className="right-bar">
             <span className="diamonds">💎 {diamonds}</span>
             {activeTab === 'Play'
-              ? <button onClick={() => setActiveTab('Leaderboard')}>
-                  Leaderboard
-                </button>
+              ? <button onClick={() => setActiveTab('Leaderboard')}>Leaderboard</button>
               : <button onClick={() => setActiveTab('Play')}>Back</button>}
           </div>
         </div>
@@ -255,36 +251,17 @@ export default function PlayPage() {
 
               <h3>Or Manual Insert:</h3>
               {manualList.map((c,i) => (
-                <div key={i} className="manual-row" style={{ display:'flex', gap:'0.75rem' }}>
-                  <input
-                    style={{ flex: 1 }}
-                    placeholder="Word"
-                    value={c.word}
-                    onChange={e => {
-                      const copy = [...manualList];
-                      copy[i].word = e.target.value;
-                      setManualList(copy);
-                    }}
-                  />
-                  <input
-                    style={{ flex: 1 }}
-                    placeholder="Meaning"
-                    value={c.definition}
-                    onChange={e => {
-                      const copy = [...manualList];
-                      copy[i].definition = e.target.value;
-                      setManualList(copy);
-                    }}
-                  />
+                <div key={i} className="manual-row">
+                  <input style={{ flex: 1 }} placeholder="Word" value={c.word} onChange={e => {
+                    const copy = [...manualList]; copy[i].word = e.target.value; setManualList(copy);
+                  }} />
+                  <input style={{ flex: 1 }} placeholder="Meaning" value={c.definition} onChange={e => {
+                    const copy = [...manualList]; copy[i].definition = e.target.value; setManualList(copy);
+                  }} />
                 </div>
               ))}
 
-              <button
-                onClick={handleReviewManual}
-                disabled={!manualList.slice(0,count).every(c=>c.word&&c.definition)}
-              >
-                Review Manual Cards
-              </button>
+              <button onClick={handleReviewManual} disabled={!manualList.slice(0,count).every(c=>c.word&&c.definition)}>Review Manual Cards</button>
             </div>
           )}
 
@@ -295,78 +272,28 @@ export default function PlayPage() {
               <div className="flashcard-list">
                 {cards.map((c,i)=>(
                   <div key={i} className="flashcard">
-                    <div className="inner">
-                      <div className="front">{c.word}</div>
-                      <div className="back">{c.definition}</div>
-                    </div>
+                    <div className="inner"><div className="front">{c.word}</div><div className="back">{c.definition}</div></div>
                   </div>
                 ))}
               </div>
-              <div className="review-buttons">
-                <button onClick={()=>setMode('select')}>Back</button>
-                <button onClick={handleStartQuiz}>Start Quiz</button>
-              </div>
+              <div className="review-buttons"><button onClick={()=>setMode('select')}>Back</button><button onClick={handleStartQuiz}>Start Quiz</button></div>
             </div>
           )}
 
           {/* QUIZ MODE */}
           {mode === 'quiz' && (
             <div className="quiz-panel">
-              <p>Time left: {timer}s</p>
-              <p>{quizCards[currentIndex]?.definition}</p>
+              <p>Time left: {timer}s</p><p>{quizCards[currentIndex]?.definition}</p>
               <input value={guess} onChange={e=>setGuess(e.target.value)} />
-              <div className="quiz-buttons">
-                <button onClick={submitAnswer}>Submit</button>
-                <button onClick={confirmSkip}>Skip</button>
-                <button onClick={()=>window.location.reload()}>Restart</button>
-              </div>
+              <div className="quiz-buttons"><button onClick={submitAnswer}>Submit</button><button onClick={confirmSkip}>Skip</button><button onClick={()=>window.location.reload()}>Restart</button></div>
             </div>
           )}
 
           {/* MODALS */}
-          {showSkip && (
-            <div className="modal">
-              <div className="modal-content">
-                <p>Use 10 diamonds to skip?</p>
-                <button onClick={doSkip}>Yes</button>
-                <button onClick={()=>setShowSkip(false)}>No</button>
-              </div>
-            </div>
-          )}
-
-          {showNoDiamonds && (
-            <div className="modal">
-              <div className="modal-content warning">
-                <p>No more diamonds</p>
-                <button onClick={()=>navigate('/purchase')}>Store</button>
-                <button onClick={()=>setShowNoDiamonds(false)}>Cancel</button>
-              </div>
-            </div>
-          )}
-
-          {showFillModal && (
-            <div className="modal">
-              <div className="modal-content">
-                <p>Fill the blank</p>
-                <button onClick={()=>setShowFillModal(false)}>OK</button>
-              </div>
-            </div>
-          )}
-
-          {showName && (
-            <div className="modal">
-              <div className="modal-content">
-                <h3>Game Over!</h3>
-                <p>Score: {results.filter(r=>r.correct).length}</p>
-                <input
-                  placeholder="Enter your name"
-                  value={playerName}
-                  onChange={e=>setPlayerName(e.target.value)}
-                />
-                <button onClick={saveScore}>Save</button>
-              </div>
-            </div>
-          )}
+          {showSkip && (<div className="modal"><div className="modal-content"><p>Use 10 diamonds to skip?</p><button onClick={doSkip}>Yes</button><button onClick={()=>setShowSkip(false)}>No</button></div></div>)}
+          {showNoDiamonds && (<div className="modal"><div className="modal-content warning"><p>No more diamonds</p><button onClick={()=>navigate('/purchase')}>Store</button><button onClick={()=>setShowNoDiamonds(false)}>Cancel</button></div></div>)}
+          {showFillModal && (<div className="modal"><div className="modal-content"><p>Fill the blank</p><button onClick={()=>setShowFillModal(false)}>OK</button></div></div>)}
+          {showName && (<div className="modal"><div className="modal-content"><h3>Game Over!</h3><p>Score: {results.filter(r=>r.correct).length}</p><input placeholder="Enter your name" value={playerName} onChange={e=>setPlayerName(e.target.value)} /><button onClick={saveScore}>Save</button></div></div>)}
         </div>
       )}
 
@@ -374,17 +301,8 @@ export default function PlayPage() {
       {activeTab === 'Leaderboard' && (
         <div className="leaderboard panel">
           <h2>Leaderboard</h2>
-          <select value={sortBy} onChange={e=>setSortBy(e.target.value)}>
-            <option value="highest">Highest Score</option>
-            <option value="lowest">Lowest Score</option>
-            <option value="earliest">Earliest</option>
-            <option value="latest">Latest</option>
-          </select>
-          <ul>
-            {sorted.map((s,i)=>(
-              <li key={i}>{s.name} – {s.score} – {s.time}</li>
-            ))}
-          </ul>
+          <select value={sortBy} onChange={e=>setSortBy(e.target.value)}><option value="highest">Highest Score</option><option value="lowest">Lowest Score</option><option value="earliest">Earliest</option><option value="latest">Latest</option></select>
+          <ul>{sorted.map((s,i)=>(<li key={i}>{s.name} – {s.score} – {s.time}</li>))}</ul>
         </div>
       )}
     </div>
