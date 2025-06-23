@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './PlayPage.css';
+const API = process.env.REACT_APP_API_URL;
+
 
 export default function PlayPage() {
   const navigate = useNavigate();
@@ -41,7 +43,7 @@ export default function PlayPage() {
 
   // LOAD STATE
   useEffect(() => {
-    fetch(`/game-state?username=${username}`)
+    fetch(`${API}/game-state?username=${username}`)
       .then(r => r.json())
       .then(data => {
         setDiamonds(data.diamonds);
@@ -90,7 +92,7 @@ export default function PlayPage() {
     if (isSkip) {
       const newD = diamonds - 10;
       setDiamonds(newD);
-      fetch('/update-diamonds', {
+      fetch('${API}/update-diamonds', {
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body: JSON.stringify({ username, diamonds: newD })
@@ -118,13 +120,13 @@ export default function PlayPage() {
     try {
       const setWords = new Set();
       while (setWords.size < count) {
-        const r = await fetch('/generate-word', { method:'POST' });
+        const r = await fetch('${API}/generate-word', { method:'POST' });
         const { word } = await r.json();
         setWords.add(word);
       }
       const words = Array.from(setWords);
       const defs = await Promise.all(words.map(async w => {
-        const r = await fetch('/define-word', {
+        const r = await fetch('${API}/define-word', {
           method:'POST',
           headers:{'Content-Type':'application/json'},
           body: JSON.stringify({ word: w })
@@ -163,7 +165,7 @@ export default function PlayPage() {
   const saveScore = () => {
     if (!playerName.trim()) return;
     const correctCount = results.filter(r => r.correct).length;
-    fetch('/save-score', {
+    fetch('${API}/save-score', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ username, name: playerName, score: correctCount })
@@ -177,10 +179,10 @@ export default function PlayPage() {
         if (localStorage.getItem('lastQuizDate') !== TODAY) {
           localStorage.setItem('lastQuizDate', TODAY);
           // bump streak
-          fetch(`/get-streak?username=${username}`)
+          fetch(`${API}/get-streak?username=${username}`)
             .then(r => r.json())
             .then(({ streakDays }) => {
-              return fetch('/save-streak', {
+              return fetch('${API}/save-streak', {
                 method:'POST',
                 headers:{'Content-Type':'application/json'},
                 body: JSON.stringify({ username, streakDays: (streakDays||0) + 1 })
