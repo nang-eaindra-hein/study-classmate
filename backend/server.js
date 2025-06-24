@@ -186,6 +186,27 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// at the bottom of server.js, before app.listen(...)
+app.post('/save-score', async (req, res) => {
+  const { username, name, score } = req.body;
+  if (!username || !name || score == null) {
+    return res.status(400).json({ error: 'Missing fields' });
+  }
+  // find the user
+  const user = await User.findOne({ username });
+  if (!user) {
+    return res.status(404).json({ error: 'User not found' });
+  }
+  // push the new score with a timestamp
+  user.scores.push({ 
+    name, 
+    score, 
+    time: new Date().toISOString() 
+  });
+  await user.save();
+  // return the updated scores array
+  res.json({ scores: user.scores });
+});
 
 // ─── Profile & Avatar ──────────────────────────────────────────
 app.get('/profile', async (req, res) => {
