@@ -436,27 +436,67 @@ export default function PlayPage() {
 
       {/* GAME OVER NAME PROMPT */}
       {showName && (
-        <div style={{
-          position:'fixed', top:0,left:0,right:0,bottom:0,
-          background:'rgba(22, 21, 21, 0.6)', display:'flex',
-          alignItems:'center', justifyContent:'center', zIndex:1000
-        }}>
-          <div style={{
-            background:'rgba(22, 21, 21, 0.6)', padding:'1.5rem 2rem', borderRadius:8,
-            textAlign:'center', maxWidth:'90%'
-          }}>
-            <h3>Game Over!</h3>
-            <p>Score: {results.filter(r=>r.correct).length}</p>
+        <div
+          style={{
+            position: 'fixed',
+            top: 0, left: 0, right: 0, bottom: 0,
+            background: 'rgba(22,21,21,0.6)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 3000,           // VERY high so it’s above everything
+            pointerEvents: 'auto',  // ensure overlay itself can still pass clicks through to its children
+          }}
+        >
+          <div
+            style={{
+              background: 'rgba(22,21,21,0.9)',
+              padding: '1.5rem 2rem',
+              borderRadius: 8,
+              textAlign: 'center',
+              maxWidth: '90%',
+              position: 'relative',
+              zIndex: 3001,           // above the overlay
+              pointerEvents: 'auto',  // ensure this panel handles clicks
+            }}
+          >
+            <h3 style={{ color: '#fff', margin: '0 0 1rem' }}>Game Over!</h3>
+            <p style={{ color: '#fff', margin: '0 0 1rem' }}>
+              Score: {results.filter(r => r.correct).length}
+            </p>
             <input
               placeholder="Enter your name"
               value={playerName}
-              onChange={e=>setPlayerName(e.target.value)}
-              style={{width:'100%',boxSizing:'border-box',margin:'1rem 0'}}
+              onChange={e => setPlayerName(e.target.value)}
+              style={{
+                width: '100%',
+                boxSizing: 'border-box',
+                margin: '0 0 1rem',
+                padding: '0.5rem',
+                borderRadius: 4,
+                border: 'none',
+                fontSize: '1rem',
+                position: 'relative',
+                zIndex: 3002,
+                pointerEvents: 'auto',
+              }}
             />
-            <button onClick={saveScore} style={{
-              padding:'.5rem 1rem',border:'none',borderRadius:6,
-              background:'rgba(56, 118, 210, 0)',color:'#fff',fontWeight:'bold'
-            }}>
+            <button
+              onClick={saveScore}
+              disabled={!playerName.trim()}
+              style={{
+                padding: '0.5rem 1rem',
+                border: 'none',
+                borderRadius: 6,
+                background: playerName.trim() ? '#3876D2' : '#555',
+                color: '#fff',
+                fontWeight: 'bold',
+                cursor: playerName.trim() ? 'pointer' : 'not-allowed',
+                position: 'relative',
+                zIndex: 3002,
+                pointerEvents: 'auto',
+              }}
+            >
               Save
             </button>
           </div>
